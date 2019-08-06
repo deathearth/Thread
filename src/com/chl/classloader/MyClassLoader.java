@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 
 /**
  *
- * 
+ * 自定义类加载器
  * @author chenhailong
  * @date 2019年5月22日 下午7:22:50
  */
@@ -26,6 +26,9 @@ public class MyClassLoader extends ClassLoader {
 		this.root = root;
 	}
 
+	/**
+	 * 找到类
+	 */
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 		byte[] classData = loadClassData(name);
 		if (classData == null) {
@@ -35,6 +38,11 @@ public class MyClassLoader extends ClassLoader {
 		}
 	}
 
+	/**
+	 * 加载类
+	 * @param className
+	 * @return
+	 */
 	@SuppressWarnings("resource")
 	private byte[] loadClassData(String className) {
 		String fileName = root + File.separatorChar + className.replace('.', File.separatorChar) + ".class";
