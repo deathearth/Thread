@@ -1,0 +1,79 @@
+package com.chl.jms;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class QueueServer extends Thread {
+	
+	//构造函数，初始化socket对象
+	QueueServer(Socket socket){
+		this.socket = socket;
+	}
+	//独立线程的socket对象
+	private Socket socket;
+	
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+
+
+	@Override
+	public void run() {
+		//获取信息流
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));  
+			PrintWriter out = new PrintWriter(socket.getOutputStream());  
+			while(true) {
+				String msg = in.readLine();
+				if(msg.equals("begin-product")) {
+					//如果是生产消息，则创建
+					MessageQueue.produce(msg);
+				}
+				if(msg.equals("consumer")) {
+					//如果是消费消息，则输出
+					out.print(MessageQueue.consumer());
+					out.flush();
+				}
+				if(msg.equals("error")) {
+					break;
+				}
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//如果没有消息，则关闭退出
+		try {
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@SuppressWarnings("resource")
+	public static void main(String[] args) {
+		try {
+			ServerSocket ss = new ServerSocket(9999);
+			while(true) {
+				//多线程处理生产、消费
+				QueueServer server = new QueueServer(ss.accept());
+				server.run();
+				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
