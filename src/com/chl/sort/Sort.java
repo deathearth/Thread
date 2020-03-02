@@ -19,8 +19,8 @@ public class Sort {
 
 		// Bubble();
 
-		// int[] ghost = new int[]{1,4,11,2,33,199,23,421,3,35};
-		// Quick_Sort(ghost,0,ghost.length-1);
+		 int[] ghost = new int[]{1,4,11,2,33,199,23,421,3,35};
+		 Quick_Sort(ghost,0,ghost.length-1);
 
 		// Select_Sort();
 
