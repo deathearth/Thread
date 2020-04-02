@@ -64,6 +64,8 @@ public class MyClassLoader extends ClassLoader {
 
 	public static void main(String[] args) {
 
+		
+		
 		MyClassLoader cc = new MyClassLoader();
 		cc.setRoot("/Users/chenhailong/Desktop");
 		Class<?> testClass = null;

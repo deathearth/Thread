@@ -40,12 +40,12 @@ public class CallableTest {
       Future<String> f = es.submit(cs);
       System.out.println(f.get());
       
-      //三、线程池处理
-      for(int i = 0;i< 10;i++) {
-        pool p = new pool(i+"");
-        poolStr = poolStr +"---"+ es.submit(p).get();
-        System.out.println(poolStr);
-      }
+//      //三、线程池处理
+//      for(int i = 0;i< 10;i++) {
+//        pool p = new pool(i+"");
+//        poolStr = poolStr +"---"+ es.submit(p).get();
+//        System.out.println(poolStr);
+//      }
       
     } catch (Exception e) {
       e.printStackTrace();

@@ -19,7 +19,7 @@ public class CountDownLatchTest {
 
   public static void main(String[] args) {
     //jdk代码中的示例
-    new CountDownLatchTest().officalExample();
+    //new CountDownLatchTest().officalExample();
     
     //简单示例
     new CountDownLatchTest().basicUse();

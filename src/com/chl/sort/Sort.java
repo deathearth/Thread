@@ -19,8 +19,8 @@ public class Sort {
 
 		// Bubble();
 
-		 int[] ghost = new int[]{1,4,11,2,33,199,23,421,3,35};
-		 Quick_Sort(ghost,0,ghost.length-1);
+//		 int[] ghost = new int[]{1,4,11,2,33,199,23,421,3,35};
+//		 Quick_Sort(ghost,0,ghost.length-1);
 
 		// Select_Sort();
 
@@ -31,7 +31,7 @@ public class Sort {
 
 		// Merge_Sort();
 
-		// Radix_Sort();
+		 Radix_Sort();
 
 		// Heap_Sort();
 	}
@@ -282,19 +282,20 @@ public class Sort {
 	 * 基数排序
 	 */
 	public static void Radix_Sort() {
-		int[] g = new int[] { 1, 4, 11, 2, 33, 199, 23, 421, 3, 35 };
+		int[] g = new int[] { 1, 4, 11, 2, 33, 199, 23,11, 421, 3, 35 };
 		int d = 3; // d表示最大的数有多少位
 		int k = 0;
-		int n = 1;
+		int n = 1; //数量级的基数
 		int m = 1; // 控制键值排序依据在哪一位
 		int[][] temp = new int[10][g.length]; // 数组的第一维表示可能的余数0-9
-		int[] order = new int[10]; // 数组orderp[i]用来表示该位是i的数的个数
-		while (m <= d) {
+		int[] order = new int[10]; // 数组order[i]用来表示该位是i的数的个数
+		while (m <= d) {  //个位 ，十位，百位
 			for (int i = 0; i < g.length; i++) {
-				int lsd = ((g[i] / n) % 10);
+				int lsd = ((g[i] / n) % 10); //取模剩几
 				temp[lsd][order[lsd]] = g[i];
-				order[lsd]++;
+				order[lsd]++;//防止重复
 			}
+			System.out.println(Arrays.toString(g));
 			for (int i = 0; i < 10; i++) {
 				if (order[i] != 0)
 					for (int j = 0; j < order[i]; j++) {
