@@ -10,6 +10,10 @@ package com.chl.thread;
 /**
  * java本地线程变量,在每个线程内对该变量创建一个副本，在线程任何地方都可以使用，相互之间不影响。但是要考虑内存的占用率
  * 
+ * 每个Thread线程内部都有一个Map。
+ * Map里面存储线程本地对象（key）和线程的变量副本（value）
+ * Thread内部的Map是由ThreadLocal维护的，由ThreadLocal负责向map获取和设置线程的变量值。
+ * 
  * @author chenhailong
  * @date 2019年6月11日 下午1:48:38
  */
