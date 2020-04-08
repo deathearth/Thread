@@ -7,7 +7,8 @@ public class TestPriorityBlockingQueue {
 
 	public static void main(String[] args) {
 
-		Queue q = new PriorityBlockingQueue();
+		Queue<String> q = new PriorityBlockingQueue<String>();
+		System.out.println(q.size());
 	}
 
 }

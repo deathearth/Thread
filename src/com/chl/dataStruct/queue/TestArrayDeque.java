@@ -7,7 +7,9 @@ public class TestArrayDeque {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Queue q = new ArrayDeque<>();
+		Queue<Integer> q = new ArrayDeque<Integer>();
+		
+		System.out.println(q.size());
 	}
 
 }

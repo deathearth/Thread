@@ -24,17 +24,17 @@ public class LoopTest {
 		s.add("3");
 		s.add("...");
 		for(String str:s) {
-			
+			System.out.println(str);
 		}
 		
-		ArrayList al = new ArrayList();
+		ArrayList<String> al = new ArrayList<String>();
 		al.add("1");
 		al.add("2");
 		al.add("3");
 		al.add("...");
 		
 		//可以在循环中处理更改对象的值，不需要知道位置
-		Iterator iter = al.iterator();
+		Iterator<String> iter = al.iterator();
 		while(iter.hasNext()) {
 			iter.next();
 		}

@@ -14,6 +14,7 @@ import java.util.Scanner;
  */
 public class ClientDatagramChannel {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		
 		try {

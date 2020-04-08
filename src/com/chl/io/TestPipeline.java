@@ -11,6 +11,7 @@ import java.io.PipedOutputStream;
  */
 public class TestPipeline {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
 		
 		// 分别创建输入和输出的管道流

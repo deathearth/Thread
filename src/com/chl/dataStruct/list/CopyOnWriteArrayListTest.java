@@ -1,8 +1,6 @@
-package com.chl.specialClass;
+package com.chl.dataStruct.list;
 
-import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 多读少写的业务场景可以使用
@@ -17,8 +15,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class CopyOnWriteArrayListTest {
 
 	public static void main(String[] args) {
-		CopyOnWriteArrayList  cwal = new CopyOnWriteArrayList();
-
+		CopyOnWriteArrayList<String>  cwal = new CopyOnWriteArrayList<String>();
+		cwal.add("abc");
 	}
 }
 

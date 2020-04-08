@@ -2,6 +2,7 @@ package com.chl.classloader;
 
 public class TestClassForname {
 
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
 		
 		try {

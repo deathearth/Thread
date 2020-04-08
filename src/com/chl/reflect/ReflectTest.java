@@ -1,11 +1,7 @@
 package com.chl.reflect;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
 public class ReflectTest {
 
-	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
 
 		//第一种方式

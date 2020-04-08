@@ -8,6 +8,7 @@ public class TestConcurrentSkipListMap {
 		// TODO Auto-generated method stub
 
 		ConcurrentSkipListMap<String, Object> skiplist = new ConcurrentSkipListMap<String, Object>();
+		skiplist.put("abc", "123");
 	}
 
 }

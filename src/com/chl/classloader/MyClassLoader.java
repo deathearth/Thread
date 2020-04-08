@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -62,6 +61,7 @@ public class MyClassLoader extends ClassLoader {
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
 		
@@ -81,15 +81,13 @@ public class MyClassLoader extends ClassLoader {
 			try {
 				Method main = testClass.getMethod("main", String[].class);
 				String[] s = new String[1];
-				main.invoke(object, s);
+//				main.invoke(object, s);
 
 			} catch (NoSuchMethodException e) {
 				e.printStackTrace();
 			} catch (SecurityException e) {
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
 				e.printStackTrace();
 			}
 

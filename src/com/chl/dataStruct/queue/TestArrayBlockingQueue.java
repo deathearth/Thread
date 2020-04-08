@@ -7,7 +7,7 @@ public class TestArrayBlockingQueue {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Queue q = new ArrayBlockingQueue<>(10);
+		Queue<Integer> q = new ArrayBlockingQueue<Integer>(10);
 		
 		q.add(1);
 		q.add(2);
