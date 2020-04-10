@@ -10,6 +10,9 @@ public class TestConcurrentHashMap {
 		ConcurrentHashMap<String,Integer> map = new ConcurrentHashMap<String,Integer>();
 		
 		map.put("abc",1);
+		
+		
+		System.out.println(map.toString());
 	}
 
 }
