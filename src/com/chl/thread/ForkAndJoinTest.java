@@ -1,8 +1,11 @@
 package com.chl.thread;
 
+import java.util.Arrays;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 将任务分割成多个子任务，然后合并成大任务 ForkJoinPool
@@ -17,7 +20,9 @@ import java.util.concurrent.RecursiveTask;
  */
 public class ForkAndJoinTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
+		
+		//有结果的任务
 		int[] arr = new int[100];
 		for(int i = 0; i < 100; i++) {
 			arr[i] = i+1;
@@ -27,6 +32,18 @@ public class ForkAndJoinTest {
 		System.out.println("----"+result.invoke());
 		pool.shutdown();
 		
+		//无结果的任务
+		long[] a = new long[120];
+		for(int i = 0;i< a.length; i++) {
+			a[i] = (long)(Math.random() * 1000);
+		}
+		System.out.println("before sort"+Arrays.toString(a));
+		pool = new ForkJoinPool();
+		pool.submit(new SortTask(a));
+		pool.awaitTermination(5, TimeUnit.SECONDS);
+		pool.shutdown();
+		
+		System.out.println("after sort"+Arrays.toString(a));
 	}
 	
 	/**
@@ -82,4 +99,52 @@ public class ForkAndJoinTest {
 		}
 	}
 
+	
+	
+	/**
+	 * 排序处理
+	 * @author chenhailong
+	 * 使用了RecursiveAction没有返回结果的。
+	 */
+	@SuppressWarnings("serial")
+	private static class SortTask extends RecursiveAction{
+
+		static final int THRESHOLD = 100;
+		
+		long[] array;
+		int lo,hi;
+		
+		public SortTask(long[] array,int lo,int hi) {
+			this.array = array;
+			this.lo = lo;
+			this.hi = hi;
+		}
+		
+		public SortTask(long[] array) {
+			this(array,0,array.length);
+		}
+		
+		public void sortSequentially(int lo,int hi) {
+			Arrays.sort(array,lo,hi);
+		}
+		
+		public void merge(int lo,int mid,int hi) {
+			long[] buf = Arrays.copyOfRange(array, lo, mid);
+			for(int i = 0,j = lo,k = mid;i < buf.length;j++) {
+				array[j] = (k == hi || buf[i] < array[k]) ? buf[i++] : array[k++];
+			}
+		}
+		
+		@Override
+		protected void compute() {
+			if(hi - lo < THRESHOLD) {
+				sortSequentially(lo,hi);
+			}else {
+				int mid = (lo + hi )>>> 1;
+				invokeAll(new SortTask(array,lo,mid),new SortTask(array,mid,hi));
+				merge(lo,mid,hi);
+			}
+		}
+		
+	}
 }
