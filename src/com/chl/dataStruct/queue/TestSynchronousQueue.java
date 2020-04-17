@@ -13,13 +13,51 @@ public class TestSynchronousQueue {
 		// TODO Auto-generated method stub
 
 		
-		SynchronousQueue<String> queue =  new SynchronousQueue<String>(false);
+		SynchronousQueue<String> queue =  new SynchronousQueue<String>(true);
 		
-		queue.offer("123");
-		queue.offer("234");
-		
-		System.out.println(queue.size());
-		
+		new Thread(new Product(queue)).start();
+		new Thread(new Consumer(queue)).start();
 	}
 
+	
+	
+	static class Product implements Runnable{
+		SynchronousQueue<String> queue;
+		
+		Product(SynchronousQueue<String> queue){
+			this.queue = queue;
+		}
+
+		@Override
+		public void run() {
+			try {
+				queue.put("a");
+				System.out.println(System.currentTimeMillis() + "--" + "输入内容!");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	static class Consumer implements Runnable{
+		SynchronousQueue<String> queue;
+		
+		Consumer(SynchronousQueue<String> queue){
+			this.queue = queue;
+		}
+
+		@Override
+		public void run() {
+			try {
+				String s = queue.take();
+				System.out.println("输出："+s);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
 }
