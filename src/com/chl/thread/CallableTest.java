@@ -10,6 +10,8 @@ import java.util.concurrent.Future;
  * java线程接口，与runnable不同的是，可以抛出异常并有返回值
  * 配合 FutureTask执行
  * 
+ * 
+ * dubbo底层的io处理是异步的。它的同步操作是通过 future.get(waittiem)实现线程的阻塞
  * @author chenhailong
  * @date 2019年6月13日 下午7:07:17
  */
@@ -38,6 +40,8 @@ public class CallableTest {
       
       //二、2 配合Future运行
       Future<String> f = es.submit(cs);
+      
+//      f.get(timeout, unit); //dubbo通过时长来实现同步的逻辑
       System.out.println(f.get());
       
 //      //三、线程池处理
