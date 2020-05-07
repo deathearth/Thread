@@ -12,6 +12,7 @@ import java.io.PrintWriter;
  * @author chenhailong
  *
  */
+@SuppressWarnings("serial")
 public class SessionServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.UUID;
 
 import javax.imageio.stream.ImageInputStream;
 
@@ -93,7 +92,7 @@ public class FileUtil {
 	 * @param cookie
 	 */
 	public static void downloadPicture(ImageInputStream dataInputStream, String filePath, String cookie) {
-		URL url = null;
+//		URL url = null;
 		try {
 			FileOutputStream fileOutputStream = new FileOutputStream(new File(filePath));
 			

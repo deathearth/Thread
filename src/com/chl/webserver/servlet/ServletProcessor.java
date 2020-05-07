@@ -32,6 +32,7 @@ public class ServletProcessor {
 			System.out.println(e.toString());
 		}
 		
+		@SuppressWarnings("rawtypes")
 		Class myClass = null;
 		try {
 			String curPackageName = ServletProcessor.class.getPackage().getName();
