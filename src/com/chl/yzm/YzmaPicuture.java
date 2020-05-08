@@ -8,8 +8,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.chl.orc.Tess4jOcrTest;
-
 /**
  * 图形验证码的生成
  * 

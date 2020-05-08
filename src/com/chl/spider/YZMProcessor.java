@@ -15,9 +15,12 @@ import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 /**
- *极验测试地址：https://www.geetest.com/demo/slide-bind.html
+ *58滑动验证码
  *https://www.jianshu.com/p/6a67c9e2c13e
  *相关文章：https://www.cnblogs.com/w-y-c-m/p/7359455.html
+ *
+ *
+ *极验的破解可以参考：https://www.zhihu.com/question/28833985
  */
 public class YZMProcessor implements PageProcessor{
 	
