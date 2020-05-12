@@ -122,23 +122,25 @@ public class Test {
 			String column = tableColumn[i].split("\\.")[1];
 			
 			
-//			sb.append("select ");
-//			sb.append("REPLACE( ");
-//			sb.append("REPLACE( ");
-//			sb.append("REPLACE( ");
-//			sb.append("REPLACE( ");
-//			sb.append("REPLACE( ");
-//			sb.append(column);
-//			sb.append(",'static.kaishiba.com','static.deathearth.com') ");
-//			sb.append(",'video.kaishiba.com','video.deathearth.com') ");
-//			sb.append(",'doc.kaishiba.com','doc.deathearth.com') ");
-//			sb.append(",'images.kaistart.com','images.deathearth.com') ");
-//			sb.append(",'images.kaishiba.com','images.deathearth.com') ");
-//			sb.append("from ");
-//			sb.append(table );
-//			sb.append(";");
-//			sb.append("\n");
 			
+			sb.append("update  ");
+			sb.append(table );
+			sb.append(" set " );
+			sb.append(column);
+			sb.append("= " );
+			sb.append("REPLACE( ");
+			sb.append("REPLACE( ");
+			sb.append("REPLACE( ");
+			sb.append("REPLACE( ");
+			sb.append("REPLACE( ");
+			sb.append(column);
+			sb.append(",'https://static.kaishiba.com','http://static.deathearth.com') ");
+			sb.append(",'http://video.kaishiba.com','http://video.deathearth.com') ");
+			sb.append(",'https://doc.kaishiba.com','http://doc.deathearth.com') ");
+			sb.append(",'http://images.kaistart.com','http://images.deathearth.com') ");
+			sb.append(",'http://images.kaishiba.com','http://images.deathearth.com') where 1 = 1 ");
+			sb.append(";");
+			sb.append("\n");
 			
 			
 //			sb.append("update  ");
@@ -150,33 +152,13 @@ public class Test {
 //			sb.append("REPLACE( ");
 //			sb.append("REPLACE( ");
 //			sb.append("REPLACE( ");
-//			sb.append("REPLACE( ");
 //			sb.append(column);
-//			sb.append(",'https://static.kaishiba.com','http://static.deathearth.com') ");
-//			sb.append(",'http://video.kaishiba.com','http://video.deathearth.com') ");
-//			sb.append(",'https://doc.kaishiba.com','http://doc.deathearth.com') ");
-//			sb.append(",'http://images.kaistart.com','http://images.deathearth.com') ");
-//			sb.append(",'http://images.kaishiba.com','http://images.deathearth.com') ");
+//			sb.append(",'http://static.deathearth.com','https://static.kaishiba.com') ");
+//			sb.append(",'http://video.deathearth.com','http://video.kaishiba.com') ");
+//			sb.append(",'http://doc.deathearth.com','https://doc.kaishiba.com') ");
+//			sb.append(",'http://images.deathearth.com','http://images.kaistart.com') where 1 = 1");
 //			sb.append(";");
 //			sb.append("\n");
-			
-			
-			sb.append("update  ");
-			sb.append(table );
-			sb.append(" set " );
-			sb.append(column);
-			sb.append("= " );
-			sb.append("REPLACE( ");
-			sb.append("REPLACE( ");
-			sb.append("REPLACE( ");
-			sb.append("REPLACE( ");
-			sb.append(column);
-			sb.append(",'http://static.deathearth.com','https://static.kaishiba.com') ");
-			sb.append(",'http://video.deathearth.com','http://video.kaishiba.com') ");
-			sb.append(",'http://doc.deathearth.com','https://doc.kaishiba.com') ");
-			sb.append(",'http://images.deathearth.com','http://images.kaistart.com') ");
-			sb.append(";");
-			sb.append("\n");
 			
 			
 		}

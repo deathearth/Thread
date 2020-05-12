@@ -1,31 +1,32 @@
 package com.chl.spider;
 
 import java.util.Calendar;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.chl.tools.image.CompareImages;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-//https://api.geetest.com/get.php?is_next=true&type=slide3&gt=019924a82c70bb123aae90d483087f94&challenge=592172715bfdcb3dc755b648ecbe0706&lang=zh-cn&https=true&protocol=https%3A%2F%2F&offline=false&product=embed&api_server=api.geetest.com&isPC=true&width=100%25&callback=geetest_1588921065545
-//https://api.geetest.com/get.php?is_next=true&type=slide3&gt=019924a82c70bb123aae90d483087f94&challenge=185dc108d60a27f5c71c4191e462a97a&lang=zh-cn&https=true&protocol=https%3A%2F%2F&offline=false&product=embed&api_server=api.geetest.com&isPC=true&width=100%25&callback=geetest_1588921092747
 
 /**
  * 极验测试地址：https://www.geetest.com/demo/slide-bind.html
- *
- *
- * 极验的破解可以参考：https://www.zhihu.com/question/28833985
+ * 
  */
-public class GeetestProcessor implements PageProcessor {
+public class GeetestSlideProcessor implements PageProcessor {
 
-	Logger logger = LoggerFactory.getLogger(GeetestProcessor.class);
+	Logger logger = LoggerFactory.getLogger(GeetestSlideProcessor.class);
 	public static String baseUrl = "https://www.geetest.com/demo/slide-bind.html";
 
 	static {
@@ -60,8 +61,71 @@ public class GeetestProcessor implements PageProcessor {
 				JS = "return document.getElementsByClassName('geetest_canvas_slice geetest_absolute')[0].toDataURL('image/png');";
 				obj = jsExecutor.executeScript(JS);
 				FileUtil.generateImage(obj.toString().split(",")[1], "/Users/chenhailong/Desktop/geetest_block.webp");
+				
+				Thread.sleep(3 * 1000); //下载图片后对比
+				
+				int x = CompareImages.CompareImagesNormal(); //获取缺口x坐标
+				x = x - 5;  //有时候滑块并不是在x=0的位置上，有偏移
+				
+				WebElement move = w.findElement(By.className("geetest_slider_button"));
+				Actions action = new Actions(w);
+				action.moveToElement(move).perform();
+				action.clickAndHold(move).perform();
+				
+//				//第一种：水平匀速移动，  怪物吃了拼图
+//				int mod = 0;
+//				if(x > 10) { mod = x/10; }
+//				for (int i = 0; i < mod; i++) {
+//					  action.moveByOffset(10, 0).perform();
+//					  Thread.sleep(200);
+//				}
+//				action.dragAndDropBy(move,(x - mod*10), 0).perform();
+				
+//				//第二种：前快中匀后快，超过后返回，   怪物吃了拼图
+//				int mod = 0;
+//				if(x > 0) {mod = x/10;}
+//				for(int i = 0; i< mod;i++) {
+//					if(i<2) {
+//						action.moveByOffset(10, 0).perform();
+//						Thread.sleep(new Random().nextInt(5) * 200 );
+//					}else if(mod - i > 2) {
+//						action.moveByOffset(10, 0).perform();
+//						Thread.sleep(5 * 200 );
+//					}else {
+//						action.moveByOffset(10, 0).perform();
+//						Thread.sleep(2 * 200 );
+//					}
+//				}
+//				int d = new Random().nextInt(20);
+//				action.moveByOffset((x - mod*10) + d, 0).perform();
+//				Thread.sleep(4 * 200 );
+//				action.dragAndDropBy(move,-d, 0).perform();
+							
+				//第三种：前快中匀后快，超过后返回，+纵向抖动   居然成功了
+				int mod = 0;
+				if(x > 0) {mod = x/10;}
+				for(int i = 0; i< mod;i++) {
+					if(i<2) {
+						action.moveByOffset(10, new Random().nextInt(5) -new Random().nextInt(5)).perform();
+						Thread.sleep(new Random().nextInt(5) * 200 );
+					}else if(mod - i > 2) {
+						action.moveByOffset(10, new Random().nextInt(5) -new Random().nextInt(5)).perform();
+						Thread.sleep(5 * 100 );
+					}else {
+						action.moveByOffset(10, new Random().nextInt(5) -new Random().nextInt(5)).perform();
+						Thread.sleep(2 * 150 );
+					}
+					System.out.println(move.getLocation().toString());
+				}
+				int d = new Random().nextInt(20);
+				action.moveByOffset((x - mod*10) + d, new Random().nextInt(5) -new Random().nextInt(5)).perform();
+				Thread.sleep(4 * 150 );
+				action.dragAndDropBy(move,-d, 0).perform();
+				
+				
+				
+				Thread.sleep(10000);
 			} 
-
 			w.quit();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -82,16 +146,9 @@ public class GeetestProcessor implements PageProcessor {
 	}
 
 	public static void main(String[] args) {
-		GeetestProcessor yzm = new GeetestProcessor();
+		GeetestSlideProcessor yzm = new GeetestSlideProcessor();
 		System.out.println(yzm);
 		Spider.create(yzm).addUrl(baseUrl).thread(1).run();
 
-		// try {
-		// String JS = "return document.getElementsByClassName('geetest_canvas_bg
-		// geetest_absolute')[0].toDataURL('image/png');";
-		//
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
 	}
 }
