@@ -9,6 +9,7 @@ import java.util.stream.Stream;
  * stream的测试
  * @author chenhailong
  *
+ * 参考：http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/stream
  */
 public class testStreams {
 

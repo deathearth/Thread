@@ -4,7 +4,7 @@ public class ExtInfo implements Info{
 
 	@Override
 	public void laugh() {
-		System.out.println("xx");
+		System.out.println("Exten info!");
 	}
 
 }

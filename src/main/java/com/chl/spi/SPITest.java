@@ -14,7 +14,6 @@ public class SPITest {
 		ServiceLoader<Info> infos = ServiceLoader.load(Info.class);
 
 		for(Info inf : infos) {
-			System.out.println("--");
 			inf.laugh();
 		}
 	}
