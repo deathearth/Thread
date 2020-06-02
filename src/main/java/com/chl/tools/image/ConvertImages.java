@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 public class ConvertImages {
 
 	public static void main(String[] args) {
-		String path = "/Users/chenhailong/Desktop/jl-grey.png";
+		String path = "/Users/chenhailong/Desktop/h.png";
 
 		try {
 			binaryImage(path);

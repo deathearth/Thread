@@ -35,10 +35,10 @@ public class RegexTest {
 		
 		
 		// method 5
-//		rt.normalTest();
+		rt.normalTest();
 		
 		// method 6
-		rt.multReg();
+//		rt.multReg();
 	}
 
 	/**
