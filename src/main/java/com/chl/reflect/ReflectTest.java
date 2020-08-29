@@ -49,6 +49,10 @@ public class ReflectTest {
 		Person p = new Person();
 		System.out.println(p.getClass().getDeclaredFields().length);
 		
+		//第三种
+		Class pp = Person.class;
+		System.out.println(pp.getName());
+		
 	}
 }
 

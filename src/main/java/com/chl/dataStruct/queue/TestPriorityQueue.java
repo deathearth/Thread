@@ -1,10 +1,13 @@
 package com.chl.dataStruct.queue;
 
+import java.util.PriorityQueue;
+
 public class TestPriorityQueue {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+		
+		PriorityQueue pq = new PriorityQueue();
 	}
 
 }

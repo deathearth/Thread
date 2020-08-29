@@ -29,9 +29,9 @@ public class Sort {
 		// Insert_Sort_Split();
 		// Insert_Shell_Sort();
 
-		// Merge_Sort();
+		 Merge_Sort();
 
-		 Radix_Sort();
+//		 Radix_Sort();
 
 		// Heap_Sort();
 	}
@@ -52,6 +52,15 @@ public class Sort {
 				}
 			}
 		}
+		
+		//插入排序
+//		for (int i = 1; i < g.length; i++) {
+//			for (int j = i; j > 0 && g[j] < g[j - 1]; j--) {
+//				int temp = g[j - 1];
+//				g[j - 1] = g[j];
+//				g[j] = temp;
+//			}
+//		}
 		System.out.println(Arrays.toString(ghost));
 	}
 
@@ -215,7 +224,7 @@ public class Sort {
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
-	// 归并排序
+	// 归并排序， 和快排比起来需要建立一个新的数组
 	//////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * 归并排序，分而治之

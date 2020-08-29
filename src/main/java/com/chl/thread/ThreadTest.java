@@ -1,5 +1,6 @@
 package com.chl.thread;
 
+import java.util.concurrent.Executor;
 
 /**
  * java线程类 Thread
@@ -15,6 +16,9 @@ public class ThreadTest {
   public static void main(String[] args) {
     T t1 = new T();
     T t2 = new T();
+    
+    
+    
     
     //run()只是一个方法，会在主线程内顺序执行
     t1.start();

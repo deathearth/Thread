@@ -54,6 +54,16 @@ public class testInteger {
 			System.out.println("integer7 == integer8");
 		else
 			System.out.println("integer7 != integer8");
+		
+		
+		Long longs1 = 129l;
+		Long longs2 = 129l;
+		
+		if(longs1 == longs2 ) {
+			System.out.println(111);
+		}else {
+			System.out.println(222);
+		}
 	}
 
 }

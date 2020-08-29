@@ -13,7 +13,7 @@ public class ExecutorsTest {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		//每个插入操作必须等待另一个线程的对应移除操作 -> 无队列长度
+		//每个插入操作必须等待另一个线程的对应移除操作 -> 无队列长度，会缓存线程，如果超过60秒，删除线程。
 		ExecutorService es1 = Executors.newCachedThreadPool();
 		//固定10个 -> 无界队列
 		ExecutorService es2 = Executors.newFixedThreadPool(10);
@@ -24,6 +24,9 @@ public class ExecutorsTest {
 		//抢占式线程池
 		ExecutorService es5 = Executors.newWorkStealingPool();
 
+//		es1.execute(command); // Runable
+//		es1.submit(task);// Runable
+//		es1.submit(task);// Callable
 		
 	}
 

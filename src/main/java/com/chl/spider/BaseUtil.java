@@ -23,7 +23,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import us.codecraft.webmagic.Site;
@@ -137,20 +136,20 @@ public class BaseUtil {
 		return new ChromeDriver(options);
 	}
 
-	public static WebDriver getHtmlUnitDriver() {
-		// 设置必要参数
-		DesiredCapabilities dcaps = new DesiredCapabilities();
-		// ssl证书支持
-		dcaps.setCapability("acceptSslCerts", true);
-		// 截屏支持
-		dcaps.setCapability("takesScreenshot", true);
-		// css搜索支持
-		dcaps.setCapability("cssSelectorsEnabled", true);
-		// js支持
-		dcaps.setJavascriptEnabled(true);
-		// 创建无界面浏览器对象
-		return new HtmlUnitDriver(dcaps);
-	}
+//	public static WebDriver getHtmlUnitDriver() {
+//		// 设置必要参数
+//		DesiredCapabilities dcaps = new DesiredCapabilities();
+//		// ssl证书支持
+//		dcaps.setCapability("acceptSslCerts", true);
+//		// 截屏支持
+//		dcaps.setCapability("takesScreenshot", true);
+//		// css搜索支持
+//		dcaps.setCapability("cssSelectorsEnabled", true);
+//		// js支持
+//		dcaps.setJavascriptEnabled(true);
+//		// 创建无界面浏览器对象
+//		return new HtmlUnitDriver(dcaps);
+//	}
 
 	public static WebDriver getFirefoxDriver() {
 		return new FirefoxDriver();

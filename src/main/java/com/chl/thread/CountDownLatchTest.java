@@ -4,12 +4,16 @@ import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 同步辅助类，允许一个或多个线程等待其他的线程系列操作 结束之后开始执行
  * 
  * @author chenhailong
  * @date 2019年6月10日 上午11:04:30
+ * 
+ * 
+ * await(带超时时间的处理，可以解决阻塞异常)
  */
 public class CountDownLatchTest {
 
@@ -58,6 +62,7 @@ public class CountDownLatchTest {
     public void run() {
       try {
         startSignal.await();
+        //startSignal.await(111, TimeUnit.SECONDS); //boolean 可判断
         long sleepTime = (new Random().nextInt(4)+1) * 1000l;
         Thread.sleep(sleepTime);
         System.out.println("当前线程的执行时间为"+sleepTime+"s");
