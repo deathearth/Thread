@@ -87,4 +87,9 @@ public class HttpClientUtils {
 		return responseContent;
 	}
 
+	
+	
+	public static void main(String[] args) {
+		System.out.println(get("http://www.baidu.com"));
+	}
 }
