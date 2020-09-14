@@ -53,7 +53,7 @@ public class YZMProcessor implements PageProcessor{
 					
 					
 					String img = w.findElement(By.className("dvc-captcha__bgImg")).getAttribute("src");
-					FileUtil.downloadPicture(img, "/Users/chenhailong/Desktop/captcha.jpeg", null);
+					FileUtils.downloadPicture(img, "/Users/chenhailong/Desktop/captcha.jpeg", null);
 					
 					
 					Actions action = new Actions(w);

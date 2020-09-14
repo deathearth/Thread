@@ -233,7 +233,8 @@ public class MySimHash {
         long l4 = System.currentTimeMillis();
         questionList.forEach(p->p.setDistance(n1.hammingDistance(p.getSimHash())));
 
-
+        questionList.forEach(v -> System.out.println(v.getSimHash().toString().length()));
+        
          TopKList topKList=new TopKList(10);
          for(Question a: questionList){
              topKList.add(a);

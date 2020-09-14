@@ -5,6 +5,7 @@
 	<groupId>com.chl</groupId>
 	<artifactId>MutilThreadTest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -26,9 +27,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<properties>
+		<docx4j.version>6.1.1</docx4j.version>
+		<export.fo.version>8.1.1</export.fo.version>
+	</properties>
 
 <!-- <scope></scope> 如果设定错误，会导致无法运行 -->
-
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
 		<dependency>
@@ -164,12 +169,53 @@
 		    <version>1.18.12</version>
 		    <scope>provided</scope>
 		</dependency>
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j -->
+	    <dependency>
+	        <groupId>org.docx4j</groupId>
+	        <artifactId>docx4j</artifactId>
+	        <version>6.0.1</version>
+	    </dependency>
+	
+		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j-export-fo -->
+		<!-- 转出pdf需要 -->
+	    <dependency>
+	        <groupId>org.docx4j</groupId>
+	        <artifactId>docx4j-export-fo</artifactId>
+	        <version>6.1.0</version>
+	    </dependency>
 
+		<!-- word转pdf（二） -->
+		<dependency>
+		   <groupId>org.docx4j</groupId>
+		   <artifactId>docx4j</artifactId>
+		   <version>6.1.1</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.docx4j</groupId>
+		   <artifactId>docx4j-export-fo</artifactId>
+		   <version>8.1.1</version>
+		</dependency>
+
+		<!-- word转pdf(三) -->
+	    <dependency>
+	        <groupId>e-iceblue</groupId>
+	        <artifactId>spire.pdf.free</artifactId>
+	        <version>2.6.3</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>e-iceblue</groupId>
+	        <artifactId>spire.doc.free</artifactId>
+	        <version>2.7.3</version>
+	    </dependency>
 	</dependencies>
 
-
-
-
-
+	<repositories>
+        <repository>
+            <id>com.e-iceblue</id>
+            <url>http://repo.e-iceblue.cn/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
 </project>

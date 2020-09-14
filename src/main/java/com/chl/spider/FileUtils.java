@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 
 @SuppressWarnings("restriction")
-public class FileUtil {
+public class FileUtils {
 
-  private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+  private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
   // base64字符串转化成图片
   public static boolean generateImage(String imgStr, String targetPath) { // 对字节数组字符串进行Base64解码并生成图片

@@ -52,15 +52,15 @@ public class GeetestSlideProcessor implements PageProcessor {
 				JavascriptExecutor jsExecutor = (JavascriptExecutor) w;
 				String JS = "return document.getElementsByClassName('geetest_canvas_bg geetest_absolute')[0].toDataURL('image/png');";
 				Object obj = jsExecutor.executeScript(JS);
-				FileUtil.generateImage(obj.toString().split(",")[1], "/Users/chenhailong/Desktop/geetest_bg.webp");
+				FileUtils.generateImage(obj.toString().split(",")[1], "/Users/chenhailong/Desktop/geetest_bg.webp");
 
 				JS = "return document.getElementsByClassName('geetest_canvas_fullbg geetest_fade geetest_absolute')[0].toDataURL('image/png');";
 				obj = jsExecutor.executeScript(JS);
-				FileUtil.generateImage(obj.toString().split(",")[1], "/Users/chenhailong/Desktop/geetest_fullbg.webp");
+				FileUtils.generateImage(obj.toString().split(",")[1], "/Users/chenhailong/Desktop/geetest_fullbg.webp");
 				
 				JS = "return document.getElementsByClassName('geetest_canvas_slice geetest_absolute')[0].toDataURL('image/png');";
 				obj = jsExecutor.executeScript(JS);
-				FileUtil.generateImage(obj.toString().split(",")[1], "/Users/chenhailong/Desktop/geetest_block.webp");
+				FileUtils.generateImage(obj.toString().split(",")[1], "/Users/chenhailong/Desktop/geetest_block.webp");
 				
 				Thread.sleep(3 * 1000); //下载图片后对比
 				

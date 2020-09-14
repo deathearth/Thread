@@ -55,7 +55,7 @@ public class GeetestClickProcessor implements PageProcessor {
 				
 				path = "/Users/chenhailong/Desktop/find.png";
 				String find = w.findElement(By.className("geetest_item_img")).getAttribute("src");
-				FileUtil.downloadPicture(find, path, null);
+				FileUtils.downloadPicture(find, path, null);
 				Thread.sleep(3 * 1000); //下载图片后对比
 				
 				int x = CompareImages.CompareImagesNormal(); //获取缺口x坐标
