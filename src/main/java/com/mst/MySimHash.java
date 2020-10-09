@@ -197,53 +197,59 @@ public class MySimHash {
         String s2 = "  1、分词，把需要判断文本分词形成这个文章的特征单词。 最后形成去掉噪音词的单词序列并为每个词加上权重，我们假设权重分为5个级别（1~5）。只要相似的字符串只有个别的位数是有差别变化。那这样我们可以推断两个相似的文本， 比如：“ 美国“51区”雇员称内部有9架飞碟，曾看见灰色外星人 ” ==> 分词后为 “ 美国（4） 51区（5） 雇员（3） 称（1） 内部（2） 有（1） 9架（3） 飞碟（5） 曾（1） 看见（3） 灰色（4） 外星人（5）”， 括号里是代表单词在整个句子里重要程度，数字越大越重要。 2、hash，通过hash算法把每个词变成hash值， 比如“美国”通过hash算法计算为 100101, “51区”通过hash算法计算为 101011。 这样我们的字符串就变成了一串串数字，还记得文章开头说过的吗，要把文章变为数字计算才能提高相似度计算性能，现在是降维过程进行时。 3、加权，通过 2步骤的hash生成结果，需要按照单词的权重形成加权数字串， 比如“美国”的hash值为“100101”，通过加权计算为“4 -4 -4 4 -4 4”；“51区”的hash值为“101011”，通过加权计算为 “ 5 -5 5 -5 5 5”。 4、合并，把上面各个单词算出来的序列值累加，变成只有一个序列串。 比如 “美国”的 “4 -4 -4 4 -4 4”，“51区”的 “ 5 -5 5 -5 5 5”， 把每一位进行累加， “4+5 -4+-5 -4+5 4+-5 -4+5 4+5” ==》 “9 -9 1 -1 1 9”。 这里作为示例只算了两个单词的，真实计算需要把所有单词的序列串累加。 5、降维，把4步算出来的 “9 -9 1 -1 1 9” 变成 0 1 串，形成我们最终的simhash签名。 如果每一位大于0 记为 1，小于0 是统优先公司";
         String s3 = "  算法找出可以hash的key值，因为我们使用的simhash是局部敏感哈希，这个算法的特点是只要相似的字 把需要判断文本分词形成这个文章的特征单词。 最后形成去掉噪音词的只要相似的字符串只有个别的位数是有差别变化。那这样我们可以推断两个相似的文本，单词序分词是代表单词在整个句子里重要程度，数字越大越重要。  2、hash，通过hash算法把每个词变成hash值， 比如“美国”通过hash算法计算为 100101, “51区”通过hash算法计算为 101011。 这样我们的字符串就变成了一串串数字，还记得文章开头说过的吗，要把文章变为数字加权，通过 家可能会有疑问，经过这么多步骤搞这么麻烦，不就是为了得到个 0 1 字符串吗？我直接把这个文本作为字符串输入v较，前面16位变成了hash查找。后面的顺序比较的个数是多，用hd5是用于生成唯一签来相差甚远；hashmap也是用于键值对查找，便于快速插入和查找的数据结构。不过我们主要解决的是文本相似度计算，要比较的是两个文章是否相识，当然我们降维生成了hashcode也是用于这个目的。看到这里估计大家就明白了，我们使用的sim是这样的，传统hash函数解决的是生成唯一值，比如 md5、hashmap等。md5是用于生成唯一签名串，只要稍微多加一个字符md5的两个数字看起来相差甚远；hashmap也是用于键值对查找，便于快速插入和查找的数据结构。不过我们主要解决的是文本相似度计算，要比较的是两个文章是否相识，当然我们降维生成了hashcode也是用于这个目的。看到这里估计大家就明白了，我们使用的simhash就算把文章中的字符串变成 01 串也还是可以用于计算相似度的，而传统的hashcode却不行。我们可以来做个测试，两个相差只有一个字符的文本串，“你妈妈喊你回家吃饭哦，回家罗回家罗” 和 “你妈妈叫你回家吃饭啦，回家罗回家罗”。短文本大量重复信息不会被过滤，是不是";
         String s4 = "  最后形成去掉噪音词的单词序分词是代表单词在整个句子里重要程度，数字越大越重要。 最后形成去掉噪音词的单词序列并为每个词加上权重 2、hash，通过hash算法把每个词变成hash值， 比如“美国”通过hash算法计算为 100101, “51区”通过hash算法计算为 101011。 这样我们的字符串就变成了一串串数字，还记得文章开头说过的吗，分为4个16位段的存储空间是单独simhash存储空间的4倍。之前算出5000w数据是 382 Mb，扩大4倍1.5G左右，还可以接受：） 要把文章变为数字加权，通过 家可能会有疑问，经过这么多步骤搞这么麻烦，不就是为了得到个 0 1 字符串吗？我直接把这个文本作为字符串输入，用hd5是用于生成唯一签来相差甚远；hashmap也是用于键值对查找，便于快速插入和查找的数据结构。不过我们主要解决的是文本相似度计算，要比较的是两个文章是否相识，当然我们降维生成了hashcode也是用于这个目的。看到这里估计大家就明白了，我们使用的sim是这样的，传统hash函数解决的是生成唯一值，比如 md5、hashmap等。md5是用于生成唯一签名串，只要稍微多加一个字符md5的两个数字看起来相差甚远；hashmap也是用于键值对查找，便于快速插入和查找的数据结构。不过我们主要解决的是文本相似度计算，要比较的是两个文章是否相识，当然我们降维生成了hashcode也是用于这个目的。看到这里估计大家就明白了，我们使用的simhash就算把文章中的字符串变成 01 串也还是可以用于计算相似度的，而传统的hashcode却不行。我们可以来做个测试，两个相差只有一个字符的文本串，“你妈妈喊你回家吃饭哦，回家罗回家罗” 和 “你妈妈叫你回家吃饭啦，回家罗回家罗”。短文本大量重复信息不会被过滤，";
+        String s5 = "  最后形成去掉噪音词的单词序分词是代表单词在整个句子里重要程度，。 最后形成去掉噪音词的单词序列并为每个词加上权重 2、hash，通过hash算法把每个词变成hash值， 比如“美国”通过hash算法计算为 100101, “51区”通过hash算法计算为 101011。 这样我们的字符串就变成了一串串数字，还记得文章开头说过的吗，分为4个16位段的存储空间是单独simhash存储空间的4倍。之前算出5000w数据是 382 Mb，扩大4倍1.5G左右，还可以接受：） 要把文章变为数字加权，通过 家可能会有疑问，经过这么多步骤搞这么麻烦，不就是为了得到个 0 1 字符串吗？我直接把这个文本作为字符串输入，用hd5是用于生成唯一签来相差甚远；hashmap也是用于键值对查找，便于快速插入和查找的数据结构。不过我们主要解决的是文本相似度计算，要比较的是两个文章是否相识，当然我们降维生成了hashcode也是用于这个目的。看到这里估计大家就明白了，我们使用的sim是这样的，传统hash函数解决的是生成唯一值，比如 md5、hashmap等。md5是用于生成唯一签名串，只要稍微多加一个字符md5的两个数字看起来相差甚远；hashmap也是用于键值对查找，便于快速插入和查找的数据结构。不过我们主要解决的是文本相似度计算，要比较的是两个文章是否相识，当然我们降维生成了hashcode也是用于这个目的。看到这里估计大家就明白了，我们使用的simhash就算把文章中的字符串变成 01 串也还是可以用于计算相似度的，而传统的hashcode却不行。我们可以来做个测试，两个相差只有一个字符的文本串，“你妈妈喊你回家吃饭哦，回家罗回家罗” 和 “你妈妈叫你回家吃饭啦，回家罗回家罗”。短文本大量重复信息不会被过滤，";
+
         long l3 = System.currentTimeMillis();
-//        MySimHash hash1 = new MySimHash(s1, 64);
-//        MySimHash hash2 = new MySimHash(s2, 64);
-//        MySimHash hash3 = new MySimHash(s3, 64);
-//        MySimHash hash4 = new MySimHash(s4, 64);
-//        System.out.println("======================================");
-//        System.out.println(  hash1.hammingDistance(hash2) );
-//        System.out.println(  hash2.hammingDistance(hash3) );
-//        System.out.println(  hash4.hammingDistance(hash3) );
-//        System.out.println(  hash1.getSemblance(hash3) );
-//        System.out.println(  hash2.getSemblance(hash3) );
-//        System.out.println(  hash3.getSemblance(hash4) );
-//        long l4 = System.currentTimeMillis();
-//        System.out.println(l4-l3);
-//        System.out.println("======================================");
-
-        List<Question> questionList=new ArrayList<>();
-        String a2="";
-        String a1="这会儿应该怎么办";
+        MySimHash hash1 = new MySimHash(s1, 64);
+        MySimHash hash2 = new MySimHash(s2, 64);
+        MySimHash hash3 = new MySimHash(s3, 64);
+        MySimHash hash4 = new MySimHash(s4, 64);
+        MySimHash hash5 = new MySimHash(s5, 64);
+        System.out.println("======================================");
+        System.out.println(  hash1.hammingDistance(hash2) );
+        System.out.println(  hash2.hammingDistance(hash3) );
+        System.out.println(  hash4.hammingDistance(hash3) );
+        System.out.println(  hash5.hammingDistance(hash4) );
+        System.out.println(  hash5.hammingDistance(hash3) );
         
-
-        MySimHash n1 = new MySimHash(a1, 64);
-//        MySimHash n2 = new MySimHash(a2, 64);
-
-        for(long i=0;i<10;i++){
-            Question question=new Question();
-            String str=a1+i;
-            MySimHash hhh = new MySimHash(str, 64);
-            question.setQuestionId(i);
-            question.setSimHash(hhh.strSimHash);
-            questionList.add(question);
-        }
-
+        System.out.println(  hash1.getSemblance(hash3) );
+        System.out.println(  hash2.getSemblance(hash3) );
+        System.out.println(  hash3.getSemblance(hash4) );
         long l4 = System.currentTimeMillis();
-        questionList.forEach(p->p.setDistance(n1.hammingDistance(p.getSimHash())));
+//        System.out.println(l4-l3);
+        System.out.println("======================================");
 
-        questionList.forEach(v -> System.out.println(v.getSimHash().toString().length()));
-        
-         TopKList topKList=new TopKList(10);
-         for(Question a: questionList){
-             topKList.add(a);
-         }
-//            System.err.println(topKList.sortedList());
-//        max5(test,10);
-//        new TopK().getTopKByHeap(test.toArray(new Integer[test.size()]), 10);
-        System.err.println("解析时间为"+( System.currentTimeMillis()-l4) +"ms");
-        System.err.println("内存占用大小为"+RamUsageEstimator.sizeOf(questionList)/1024L+"kb");
+//        List<Question> questionList=new ArrayList<>();
+//        String a2="";
+//        String a1="这会儿应该怎么办";
+//        
+//
+//        MySimHash n1 = new MySimHash(a1, 64);
+////        MySimHash n2 = new MySimHash(a2, 64);
+//
+//        for(long i=0;i<10;i++){
+//            Question question=new Question();
+//            String str=a1+i;
+//            MySimHash hhh = new MySimHash(str, 64);
+//            question.setQuestionId(i);
+//            question.setSimHash(hhh.strSimHash);
+//            questionList.add(question);
+//        }
+//
+//        long l4 = System.currentTimeMillis();
+//        questionList.forEach(p->p.setDistance(n1.hammingDistance(p.getSimHash())));
+//
+//        questionList.forEach(v -> System.out.println(v.getSimHash().toString().length()));
+//        
+//         TopKList topKList=new TopKList(10);
+//         for(Question a: questionList){
+//             topKList.add(a);
+//         }
+////            System.err.println(topKList.sortedList());
+////        max5(test,10);
+////        new TopK().getTopKByHeap(test.toArray(new Integer[test.size()]), 10);
+//        System.err.println("解析时间为"+( System.currentTimeMillis()-l4) +"ms");
+//        System.err.println("内存占用大小为"+RamUsageEstimator.sizeOf(questionList)/1024L+"kb");
 
     }
 

@@ -8,14 +8,10 @@ public class TestHashMap {
 		// TODO Auto-generated method stub
 		HashMap<String,Object> hm = new HashMap<String,Object>(2);
 		
-		String s = "abcdefg";
+		hm.put("abc", "abc");
+		hm.put("bcd", "bcd");
 		
-		int h ;
-		System.out.println( (h = s.hashCode())^(h >>> 16));
-		
-		
-		
-		hm.put("s",s);
+		System.out.println(hm.containsKey("bbc"));
 		
 		
 	}
