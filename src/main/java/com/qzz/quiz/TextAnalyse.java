@@ -36,13 +36,14 @@ public class TextAnalyse{
 			String[] eachLine = question.split(splitBR);
 			StringBuffer sb = new StringBuffer();
 			sb.append("a:3:{");
-			if(eachLine[1]!=null || eachLine[1].length() > 0) {
+			if(eachLine[1]!=null || eachLine[1].length() > 0) { //如果有题干 + 每题答案
 				for(String line: eachLine) {
-					String id = line.split(splitN)[0];
-					if(line.indexOf(splitA) >= 0) {
-						String[] eachAnswer = line.split(splitE);
+					String id = line.split(splitN)[0]; //获取题号
+					if(line.indexOf(splitA) >= 0) { 
+						
+						String[] eachAnswer = line.split(splitE); //处理每道题
 						for(String Answer : eachAnswer) {
-							
+							//答案 + 分值 对应起来
 							int type = 0;
 							for(int i = 0 ; i < QuizTest.type ; i++) {
 								Integer[] questionIds = QuizTest.scoreIds[i];
@@ -60,7 +61,7 @@ public class TextAnalyse{
 					}
 					
 				}
-			}else {
+			}else { //如果 没有答案
 				qv.setQuestion(eachLine[0]);
 				
 				for(Entry<String,Integer> e:QuizTest.ac.entrySet()) {
@@ -69,6 +70,8 @@ public class TextAnalyse{
 				
 			}
 			sb.append("}");
+			qv.setAnswer_data(sb.toString());
+			list.add(qv);
 		}
 		return list;
 	}
