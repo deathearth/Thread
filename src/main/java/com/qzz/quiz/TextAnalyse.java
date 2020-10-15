@@ -1,6 +1,7 @@
 package com.qzz.quiz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -37,13 +38,24 @@ public class TextAnalyse{
 			sb.append("a:3:{");
 			if(eachLine[1]!=null || eachLine[1].length() > 0) {
 				for(String line: eachLine) {
+					String id = line.split(splitN)[0];
 					if(line.indexOf(splitA) >= 0) {
 						String[] eachAnswer = line.split(splitE);
 						for(String Answer : eachAnswer) {
-							sb.append(qData.replace(answer, Answer).replace(score, "1"));
+							
+							int type = 0;
+							for(int i = 0 ; i < QuizTest.type ; i++) {
+								Integer[] questionIds = QuizTest.scoreIds[i];
+								if(Arrays.asList(questionIds).contains(Integer.parseInt(id))) {
+									type = i;
+								}
+							}
+							
+							sb.append(qData.replace(answer, Answer).replace(score, QuizTest.hm.get(type).toString()));
 						}
 						
 					}else {
+						
 						qv.setQuestion(line);
 					}
 					

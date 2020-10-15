@@ -13,10 +13,10 @@ public class QuizTest {
 	private static Integer quizId = 1;
 	
 	//试题有几种分类
-	private static Integer type = 4;
+	public static Integer type = 4;
 	
 	//二维数组处理,如果每种类型的题分不一致的话需要用这个
-	private static Integer scoreIds[][] = 
+	public static Integer scoreIds[][] = 
 		{
 		{},
 		{},
@@ -33,7 +33,7 @@ public class QuizTest {
 	private static String allTheWay = "非常符合+%2，比较符合计+%1，拿不准的计%0，比较不符合计%－1，完全不符合计%－2";
 	
 	//存放类型 + 分数
-	private static HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+	public static HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
 	
 	//固定类型 + 分数
 	public static HashMap<String,Integer> ac = new HashMap<String,Integer>();
