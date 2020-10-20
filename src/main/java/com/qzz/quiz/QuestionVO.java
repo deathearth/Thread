@@ -7,7 +7,18 @@ package com.qzz.quiz;
  */
 public class QuestionVO {
 
-/**
+@Override
+	public String toString() {
+		return "QuestionVO [id=" + id + ", quiz_id=" + quiz_id + ", online=" + online + ", sort=" + sort + ", title="
+				+ title + ", points=" + points + ", question=" + question + ", correct_msg=" + correct_msg
+				+ ", incorrect_msg=" + incorrect_msg + ", correct_same_text=" + correct_same_text + ", tip_enabled="
+				+ tip_enabled + ", tip_msg=" + tip_msg + ", answer_type=" + answer_type + ", show_points_in_box="
+				+ show_points_in_box + ", answer_points_activated=" + answer_points_activated + ", answer_data="
+				+ answer_data + ", category_id=" + category_id + ", answer_points_diff_modus_activated="
+				+ answer_points_diff_modus_activated + ", disable_correct=" + disable_correct
+				+ ", matrix_sort_answer_criteria_width=" + matrix_sort_answer_criteria_width + "]";
+	}
+	/**
  * INSERT INTO `wordpress`.`wp_wp_pro_quiz_question`
  * (`id`, `quiz_id`, `online`, `sort`, `title`, `points`, `question`, `correct_msg`, `incorrect_msg`, 
  * `correct_same_text`, `tip_enabled`, `tip_msg`, `answer_type`, `show_points_in_box`, `answer_points_activated`,

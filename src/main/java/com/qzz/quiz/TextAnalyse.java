@@ -33,17 +33,42 @@ public class TextAnalyse{
 		String[] eachQuestion = text.split(splitQ);
 		for(String question: eachQuestion) {
 			QuestionVO qv = new QuestionVO();
+			if(question.length() <= 0) {
+				continue;
+			}
+			System.out.println("当前题："+ question);
 			String[] eachLine = question.split(splitBR);
 			StringBuffer sb = new StringBuffer();
 			sb.append("a:3:{");
-			if(eachLine[1]!=null || eachLine[1].length() > 0) { //如果有题干 + 每题答案
+			
+			//公共部分
+			qv.setQuiz_id(QuizTest.quizId);//所属试卷
+			qv.setOnline(1); //线上？
+			int sort = Integer.parseInt(question.split(splitN)[0]);
+			qv.setSort(sort); //排序值
+			qv.setQuestion(question.split(splitN)[1]);
+			qv.setCorrect_msg("");  //正确答案
+			qv.setIncorrect_msg("");//错误答案
+			qv.setCorrect_same_text(0); //?
+			qv.setAnswer_type("'single'"); //单选题+
+			qv.setCategory_id(0); //题属于哪个分类
+			qv.setDisable_correct(0); //去掉正确错误答案
+			qv.setMatrix_sort_answer_criteria_width(20); //?
+			qv.setAnswer_points_diff_modus_activated(0); //不同答案不同分
+			qv.setAnswer_points_activated(0);
+			
+			//开启提示,一般不设置
+			qv.setTip_enabled(0);
+			qv.setTip_msg("");
+			qv.setPoints(0);//总分， 按题计分还是答案处理
+			
+			if(eachLine.length > 1) {
 				for(String line: eachLine) {
-					String id = line.split(splitN)[0]; //获取题号
-					if(line.indexOf(splitA) >= 0) { 
-						
-						String[] eachAnswer = line.split(splitE); //处理每道题
+					String id = line.split(splitN)[0];
+					if(line.indexOf(splitA) >= 0) {
+						String[] eachAnswer = line.split(splitE);
 						for(String Answer : eachAnswer) {
-							//答案 + 分值 对应起来
+							
 							int type = 0;
 							for(int i = 0 ; i < QuizTest.type ; i++) {
 								Integer[] questionIds = QuizTest.scoreIds[i];
@@ -61,18 +86,18 @@ public class TextAnalyse{
 					}
 					
 				}
-			}else { //如果 没有答案
+			}else {
 				qv.setQuestion(eachLine[0]);
 				
 				for(Entry<String,Integer> e:QuizTest.ac.entrySet()) {
 					sb.append(qData.replace(answer, e.getKey()).replace(score, String.valueOf(e.getValue())));
 				}
-				
 			}
 			sb.append("}");
 			qv.setAnswer_data(sb.toString());
 			list.add(qv);
 		}
+		
 		return list;
 	}
 }
