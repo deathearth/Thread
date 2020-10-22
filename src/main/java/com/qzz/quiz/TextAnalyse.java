@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 解析文本 
@@ -24,8 +26,10 @@ public class TextAnalyse{
 	public static String splitBR = "\r\n";
 	public static String answer = "@answer";
 	public static String score = "@score";
+	public static String turn = "@turn";
+	public static String charLength = "@charLength";
 	
-	private static String qData = "i:0;O:27:\\\"WpProQuiz_Model_AnswerTypes\\\":7:\r\n{s:10:\\\"\\0*\\0_answer\\\";s:12:\\\"@answer\\\";s:8:\\\"\\0*\\0_html\\\";b:0;s:10:\\\"\\0*\\0_points\\\";i:@score;s:11:\\\"\\0*\\0_correct\\\";b:0;s:14:\\\"\\0*\\0_sortString\\\";s:0:\\\"\\\";s:18:\\\"\\0*\\0_sortStringHtml\\\";b:0;s:10:\\\"\\0*\\0_mapper\\\";N;}";
+	private static String qData = "i:@turn;O:27:\\\"WpProQuiz_Model_AnswerTypes\\\":7:{s:10:\\\"\\0*\\0_answer\\\";s:@charLength:\\\"@answer\\\";s:8:\\\"\\0*\\0_html\\\";b:0;s:10:\\\"\\0*\\0_points\\\";i:@score;s:11:\\\"\\0*\\0_correct\\\";b:0;s:14:\\\"\\0*\\0_sortString\\\";s:0:\\\"\\\";s:18:\\\"\\0*\\0_sortStringHtml\\\";b:0;s:10:\\\"\\0*\\0_mapper\\\";N;}";
 
 	public static List<QuestionVO> analyseText(String text){
 		List<QuestionVO> list = new ArrayList<QuestionVO>();
@@ -39,7 +43,6 @@ public class TextAnalyse{
 			System.out.println("当前题："+ question);
 			String[] eachLine = question.split(splitBR);
 			StringBuffer sb = new StringBuffer();
-			sb.append("a:3:{");
 			
 			//公共部分
 			qv.setQuiz_id(QuizTest.quizId);//所属试卷
@@ -54,8 +57,8 @@ public class TextAnalyse{
 			qv.setCategory_id(0); //题属于哪个分类
 			qv.setDisable_correct(0); //去掉正确错误答案
 			qv.setMatrix_sort_answer_criteria_width(20); //?
-			qv.setAnswer_points_diff_modus_activated(0); //不同答案不同分
-			qv.setAnswer_points_activated(0);
+			qv.setAnswer_points_diff_modus_activated(1); //不同答案不同分
+			qv.setAnswer_points_activated(1);
 			
 			//开启提示,一般不设置
 			qv.setTip_enabled(0);
@@ -63,6 +66,7 @@ public class TextAnalyse{
 			qv.setPoints(0);//总分， 按题计分还是答案处理
 			
 			if(eachLine.length > 1) {
+				sb.append("a:3:{");   //这里要指明有几个答案
 				for(String line: eachLine) {
 					String id = line.split(splitN)[0];
 					if(line.indexOf(splitA) >= 0) {
@@ -87,17 +91,35 @@ public class TextAnalyse{
 					
 				}
 			}else {
-				qv.setQuestion(eachLine[0]);
-				
+				sb.append("a:"+QuizTest.ac.size()+":{");   //这里要指明有几个答案
+				qv.setQuestion(eachLine[0].replace(splitN, ". "));
+				qv.setDisable_correct(1); //去掉正确错误答案
+				int tt = 0;
 				for(Entry<String,Integer> e:QuizTest.ac.entrySet()) {
-					sb.append(qData.replace(answer, e.getKey()).replace(score, String.valueOf(e.getValue())));
+					int count = getCount(e.getKey().toString());
+					count = count * 3 + e.getKey().length() - count; //字符的长度必须匹配，否则无法正常显示
+					sb.append(qData.replace(turn, tt+"").replace(charLength, count+"").replace(answer, e.getKey()).replace(score, String.valueOf(e.getValue())));
+					tt++;
 				}
 			}
 			sb.append("}");
 			qv.setAnswer_data(sb.toString());
 			list.add(qv);
 		}
-		
 		return list;
+	}
+	
+	
+	public static int getCount(String str) {
+		int count = 0;
+		String regEx = "[\\u4e00-\\u9fa5]";
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(str);
+		while (m.find()) {
+			for (int i = 0; i <= m.groupCount(); i++) {
+				count = count + 1;
+			}
+		}
+		return count;
 	}
 }

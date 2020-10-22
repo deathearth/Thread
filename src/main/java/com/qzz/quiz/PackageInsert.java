@@ -1,5 +1,9 @@
 package com.qzz.quiz;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class PackageInsert {
@@ -13,13 +17,13 @@ public class PackageInsert {
 		StringBuffer sb = new StringBuffer();
 		for(QuestionVO q: list) {
 			sb.append(" INSERT INTO ");
-			sb.append(" `wp_wp_pro_quiz_question` ");
-			sb.append(" `id`," );
+			sb.append(" `wp_wp_pro_quiz_question` (");
+//			sb.append(" `id`," );
 			sb.append(" `quiz_id`, `online`, `sort`, `title`, ");
 			sb.append(" `points`, `question`, `correct_msg`, `incorrect_msg`, `correct_same_text`, ");
 			sb.append(" `tip_enabled`, `tip_msg`, `answer_type`, `show_points_in_box`, `answer_points_activated`, ");
 			sb.append("  `answer_data`, `category_id`, `answer_points_diff_modus_activated`, `disable_correct`, `matrix_sort_answer_criteria_width`");
-			sb.append(" VALUES ( ");
+			sb.append(") VALUES ( ");
 			sb.append(q.getQuiz_id());
 			sb.append(",");
 			sb.append(q.getOnline());
@@ -62,5 +66,21 @@ public class PackageInsert {
 			System.out.println(sb.toString());
 		}
 		
+		
+		write(sb.toString());
+	}
+	
+	public static void write(String s) {
+		File f = new File("sql.text");
+		try {
+			FileOutputStream fos = new FileOutputStream(f);
+			fos.write(s.getBytes());
+			
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

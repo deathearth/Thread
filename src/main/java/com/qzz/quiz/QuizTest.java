@@ -3,8 +3,11 @@ package com.qzz.quiz;
 import java.util.HashMap;
 import java.util.List;
 
-import org.docx4j.org.apache.xml.security.Init;
-
+/**
+ * 
+ *  单题的每个答案不能一样
+ *
+ */
 public class QuizTest {
 	
 	/**
@@ -13,6 +16,19 @@ public class QuizTest {
 	
 	//所属试卷
 	public static Integer quizId = 1;
+	
+	/**
+	 * 不能出现特殊符号
+	 */
+	private static String allTheWay = "非常符合%-2，比较符合计%-1，拿不准的计%0，比较不符合计%1，完全不符合计%2";
+	
+	
+	/***
+	 * ================================================================================
+	 * ==============================没有答案的题只要上面==============================
+	 * ================================================================================
+	 */
+	
 	
 	//试题有几种分类
 	public static Integer type = 4;
@@ -31,8 +47,6 @@ public class QuizTest {
 	
 	//分数信息
 	private static Integer score[] = {}; //注：这个需要和上面的顺序保持一致
-	
-	private static String allTheWay = "非常符合+%2，比较符合计+%1，拿不准的计%0，比较不符合计%－1，完全不符合计%－2";
 	
 	//存放类型 + 分数
 	public static HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
