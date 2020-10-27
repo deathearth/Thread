@@ -17,8 +17,11 @@ import java.util.regex.Pattern;
  * ###1%%%题干
  * $$$答案&&&答案 (如果答案统一,则外部传入)
  * 
+ * 
+ * 
+ * 答案都是相同的，但是针对题没有做分类
  */
-public class TextAnalyse{
+public class SameAnswerNoCate{
 	public static String splitQ = "###";
 	public static String splitA = "$$$";
 	public static String splitE = "&&&";

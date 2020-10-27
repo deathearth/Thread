@@ -62,8 +62,6 @@ public class PackageInsert {
 			sb.append(",");
 			sb.append(q.getMatrix_sort_answer_criteria_width());
 			sb.append(" ); ");
-			
-			System.out.println(sb.toString());
 		}
 		
 		
