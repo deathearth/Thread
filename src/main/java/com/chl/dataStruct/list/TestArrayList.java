@@ -17,6 +17,10 @@ public class TestArrayList {
 		
 		
 		al.add(5,new byte[1 * unit]);
+		
+		System.out.println(al.toString());
+		
+		System.out.println(al.subList(0, 7));
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.chl.http;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -8,6 +9,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -89,7 +92,48 @@ public class HttpClientUtils {
 
 	
 	
+	
+	/**
+	 * 测试接口转线上接口
+	 * 
+	 * @param url
+	 * @param body
+	 * @return
+	 */
+	public static String postTest(String url, String body) {
+		url = "http://wordconvert.test.mistong.com/api/file/upload";
+		CloseableHttpClient httpCilent = HttpClients.createDefault();
+		String responseContent = "";
+		HttpPost post = new HttpPost(url);
+		try {
+			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+			builder.addPart("key", new FileBody(new File("/C:/Users/MST-KKL/Desktop/abc/222333.wmf")));
+			HttpEntity multipart = builder.build();
+			
+			
+
+			// 设置post求情参数
+			HttpResponse httpResponse = httpCilent.execute(post);
+			
+			
+			HttpEntity entity = httpResponse.getEntity();
+			if (null != entity) {
+				responseContent = EntityUtils.toString(entity, "UTF-8");
+			}
+		} catch (IOException e) {
+			logger.info("POST请求时发生异常{}", e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				httpCilent.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return responseContent;
+	}
+	
 	public static void main(String[] args) {
-		System.out.println(get("http://www.baidu.com"));
+		System.out.println(postTest(null,null));
 	}
 }
