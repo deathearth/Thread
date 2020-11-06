@@ -11,16 +11,21 @@ public class TestArrayList {
 		ArrayList<Object> al = new ArrayList<Object>(10);
 		
 		
-		for(int i = 0;i<6;i++) {
-			al.add(new byte[1 * unit]);
-		}
+//		for(int i = 0;i<6;i++) {
+//			al.add(new byte[1 * unit]);
+//		}
+//		
+//		
+//		al.add(5,new byte[1 * unit]);
+//		
+//		System.out.println(al.toString());
+//		
+//		System.out.println(al.subList(0, 7));
 		
-		
-		al.add(5,new byte[1 * unit]);
-		
+		al.add(111l);
+		al.add(112l);
 		System.out.println(al.toString());
 		
-		System.out.println(al.subList(0, 7));
 	}
 
 }

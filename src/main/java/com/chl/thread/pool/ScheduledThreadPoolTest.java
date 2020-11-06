@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 定时线程池
- * @author MST-KKL
+ * @author chl
  *
  */
 public class ScheduledThreadPoolTest {
@@ -15,20 +15,18 @@ public class ScheduledThreadPoolTest {
 	public static void main(String[] args) {
 		System.out.println(Thread.currentThread().getName()+" begin = "+new Date());
 		ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
-		for(int i=0; i<1; i++){  //如果多个线程是有问题的， 单个线程成功
+		for(int i=0; i<5; i++){  //如果多个线程是有问题的， 单个线程成功
             try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             WorkerThread worker = new WorkerThread("--" +i);
-            scheduledThreadPool.scheduleWithFixedDelay(worker, 4, 2, TimeUnit.SECONDS);
+            scheduledThreadPool.scheduleWithFixedDelay(worker, 8, 2, TimeUnit.SECONDS);
         }
 		try {
 			Thread.sleep(10 * 1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		scheduledThreadPool.shutdown();
