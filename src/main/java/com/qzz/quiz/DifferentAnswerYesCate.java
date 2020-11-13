@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * 
  * 答案都是相同的，但是针对题没有做分类
  */
-public class DifferentAnswerNoCate {
+public class DifferentAnswerYesCate {
 	public static String splitQ = "###";
 	public static String splitA = "$$$"; // 这个由换行处理
 	public static String splitE = "&&&";
@@ -68,12 +68,14 @@ public class DifferentAnswerNoCate {
 				String[] answers = eachLine[1].split(splitE);
 				sb.append("a:" + answers.length + ":{"); // 这里要指明有几个答案
 				int tt = 0;
-				
-				//TODO 这里需要处理分数的信息
-				
-				
 				for (String answer : answers) {
 					int type = 0;
+					for (int i = 0; i < QuizTest.type; i++) {
+						Integer[] questionIds = QuizTest.scoreIds[i];
+						if (Arrays.asList(questionIds).contains(sort)) {
+							type = i;
+						}
+					}
 					int count = getCount(answer);
 					count = count * 3 + answer.length() - count; // 字符的长度必须匹配，否则无法正常显示
 					sb.append(qData.replace(turn, tt + "").replace(charLength, answer + "").replace(answer, answer)
