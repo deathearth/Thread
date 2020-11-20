@@ -1,6 +1,7 @@
 package com.mst;
 
 import com.carrotsearch.sizeof.RamUsageEstimator;
+import com.hankcs.hanlp.dependency.nnparser.util.Log;
 import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.tokenizer.StandardTokenizer;
 import org.apache.commons.lang3.StringUtils;
@@ -9,6 +10,7 @@ import org.jsoup.safety.Whitelist;
 
 import java.math.BigInteger;
 import java.util.*;
+
 
 public class MySimHash {
     private String tokens; //字符串
@@ -35,12 +37,14 @@ public class MySimHash {
      */
     private String cleanResume(String content) {
         // 若输入为HTML,下面会过滤掉所有的HTML的tag
-//        content = Jsoup.clean(content, Whitelist.none());
+        content = Jsoup.clean(content, Whitelist.none());
         content = StringUtils.lowerCase(content);
         String[] strings = {" ", "\n", "\r", "\t", "\\r", "\\n", "\\t", "&nbsp;"};
         for (String s : strings) {
             content = content.replaceAll(s, "");
         }
+        content = content.replaceAll("\\<img.*?\\>\r\n", "");
+        System.out.println(content);
         return content;
     }
 
@@ -57,7 +61,6 @@ public class MySimHash {
 
         List<Term> termList = StandardTokenizer.segment(this.tokens); // 对字符串进行分词
         
-        System.out.println(termList.toString());
 
         //对分词的一些特殊处理 : 比如: 根据词性添加权重 , 过滤掉标点符号 , 过滤超频词汇等;
         // 词性的权重
@@ -195,30 +198,40 @@ public class MySimHash {
 
     public static void main(String[] args) {
 
-        String s1 = "若<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936839873544192\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»a«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»+«/mo»«mover accent='true'»    «mi»b«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«mo stretchy='false'»(«/mo»«mo»&#x2212;«/mo»«mtext»6«/mtext»«mo»,«/mo»«mo»&#x2212;«/mo»«mtext»9«/mtext»«mo stretchy='false'»)«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamyyaaGa  ay51GaGaey4kaSYaa8HaaeaacaWGIbaacaGLxdcacqGH9aqppaGaai  ika8qacqGHsislcaqG2aGaaiilaiabgkHiTiaabMdapaGaaiykaaaa  @4BE4@  «/annotation» «/semantics»«/math»«/math»\"/>，<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936839873544193\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»a«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»&#x2212;«/mo»«mover accent='true'»    «mi»b«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«mo stretchy='false'»(«/mo»«mtext»7«/mtext»«mo»,«/mo»«mtext»4«/mtext»«mo stretchy='false'»)«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamyyaaGa  ay51GaGaeyOeI0Yaa8HaaeaacaWGIbaacaGLxdcacqGH9aqppaGaai  ikaiaabEdapeGaaiilaiaabsdapaGaaiykaaaa@4A11@  «/annotation» «/semantics»«/math»«/math»\"/>，则向量<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936848463478784\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»a«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamyyaaGa  ay51GaGaeyypa0daaa@42E1@  «/annotation» «/semantics»«/math»«/math»\"/><span class=\"mst-question-answer-placeholder\">1</span>, 向量<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936848463478786\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»b«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamOyaaGa  ay51GaGaeyypa0daaa@42E2@  «/annotation» «/semantics»«/math»«/math»\"/><span class=\"mst-question-answer-placeholder\">2</span>."; 
-        String s2 = "若<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936917182955520\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»a«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»+«/mo»«mover accent='true'»    «mi»b«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«mo stretchy='false'»(«/mo»«mo»&#x2212;«/mo»«mn»3«/mn»«mo»,      «/mo»«mo»&#x2212;«/mo»«mn»4«/mn»«mo stretchy='false'»)«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamyyaaGa  ay51GaGaey4kaSYaa8HaaeaacaWGIbaacaGLxdcacqGH9aqppaGaai  ika8qacqGHsislcaaIZaGaaiilaiabgkHiTiaaisdapaGaaiykaaaa  @4BEA@  «/annotation» «/semantics»«/math»«/math»\"/>，<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936917182955521\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»a«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»&#x2212;«/mo»«mover accent='true'»    «mi»b«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«mo stretchy='false'»(«/mo»«mn»5«/mn»«mo»,«/mo»«mtext»3«/mtext»«mo stretchy='false'»)«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamyyaaGa  ay51GaGaeyOeI0Yaa8HaaeaacaWGIbaacaGLxdcacqGH9aqppaGaai  ika8qacaaI1aGaaiilaiaabodapaGaaiykaaaa@4A15@  «/annotation» «/semantics»«/math»«/math»\"/>，则向量<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936917182955522\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»a«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamyyaaGa  ay51GaGaeyypa0daaa@42E1@  «/annotation» «/semantics»«/math»«/math»\"/><span class=\"mst-question-answer-placeholder\">1</span>, 向量<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936917182955524\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»b«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamOyaaGa  ay51GaGaeyypa0daaa@42E2@  «/annotation» «/semantics»«/math»«/math»\"/><span class=\"mst-question-answer-placeholder\">2</span>.";
-        String s3 = "若<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936917182955520\" data-mathml=\"\"/>，则向量<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936917182955522\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»a«/mi»    «mo stretchy='true'»&#x2192;«/mo»   «/mover»   «mo»=«/mo»«/mrow»  «annotation encoding='MathType-MTEF'»MathType@MTEF@5@5@+=  feaagKart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLn  hiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr  4rNCHbWexLMBbXgBd9gzLbvyNv2CaeHbl7mZLdGeaGqiVu0Je9sqqr  pepC0xbbL8F4rqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs  0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9adbaqaaeGaciGaai  aabeqaamaabaabauaakeaaqaaaaaaaaaWdbmaaFiaabaGaamyyaaGa  ay51GaGaeyypa0daaa@42E1@  «/annotation» «/semantics»«/math»«/math»\"/><span class=\"mst-question-answer-placeholder\">1</span>, 向量<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/769936917182955524\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math display='block'» «semantics»  «mrow»   «mover accent='true'»    «mi»b«/mi»    «mo stretchy='true'»&#x2192;.";
-
-        long l3 = System.currentTimeMillis();
+        String s1 = "realizeyour________________实现你的潜能1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"; 
+        String s2 = "realize your___a_____________实现你的潜能1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+        String s3 = "gateway.test.mistong.com/api/filecenter/fileService/file/782123620597817345 width=194 height=149/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123620597817346 width=194 height=154/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123620597817347 width=201 height=148/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123629187751936 width=204 height=148/>\"]";
+//
+//        long l3 = System.currentTimeMillis();
         MySimHash hash1 = new MySimHash(s1, 64);
         MySimHash hash2 = new MySimHash(s2, 64);
+        
+        System.out.println(hash1.strSimHash);
+        System.out.println(hash2.strSimHash);
         MySimHash hash3 = new MySimHash(s3, 64);
-//        MySimHash hash4 = new MySimHash(s4, 64);
-//        MySimHash hash5 = new MySimHash(s5, 64);
-        System.out.println("======================================");
+        System.out.println(hash3.strSimHash);
+////        MySimHash hash4 = new MySimHash(s4, 64);
+////        MySimHash hash5 = new MySimHash(s5, 64);
+//        System.out.println("======================================");
         System.out.println(  hash1.hammingDistance(hash2) );
         System.out.println(  hash2.hammingDistance(hash3) );
         System.out.println(  hash1.hammingDistance(hash3) );
-//        System.out.println(  hash5.hammingDistance(hash4) );
-//        System.out.println(  hash5.hammingDistance(hash3) );
+////        System.out.println(  hash5.hammingDistance(hash4) );
+////        System.out.println(  hash5.hammingDistance(hash3) );
+//        
+////        System.out.println(  hash1.getSemblance(hash3) );
+////        System.out.println(  hash2.getSemblance(hash3) );
+////        System.out.println(  hash3.getSemblance(hash4) );
+//        long l4 = System.currentTimeMillis();
+////        System.out.println(l4-l3);
+//        System.out.println("======================================");
         
-//        System.out.println(  hash1.getSemblance(hash3) );
-//        System.out.println(  hash2.getSemblance(hash3) );
-//        System.out.println(  hash3.getSemblance(hash4) );
-        long l4 = System.currentTimeMillis();
-//        System.out.println(l4-l3);
-        System.out.println("======================================");
+//        System.out.println(getDistance(new BigInteger("1488196069151293248"),new BigInteger("1487633119197871936")));
+//        System.out.println(getDistance(new BigInteger("1488196069151293248"),new BigInteger("1487633119197625664")));
+//        System.out.println(getDistance(new BigInteger("2469794738668645073"),new BigInteger("3469805065405543123")));
+        
 
+        
 //        List<Question> questionList=new ArrayList<>();
 //        String a2="";
 //        String a1="这会儿应该怎么办";
@@ -254,7 +267,17 @@ public class MySimHash {
     }
 
 
-
+    private static int getDistance(BigInteger ahash, BigInteger bhash) {
+        BigInteger m = new BigInteger("1").shiftLeft(64).subtract(
+                new BigInteger("1"));
+        BigInteger x = ahash.xor(bhash).and(m);
+        int tot = 0;
+        while (x.signum() != 0) {
+            tot += 1;
+            x = x.and(x.subtract(new BigInteger("1")));
+        }
+        return tot;
+    }
 
 
 }
