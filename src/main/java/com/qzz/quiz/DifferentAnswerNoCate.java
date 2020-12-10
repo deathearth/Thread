@@ -1,9 +1,7 @@
 package com.qzz.quiz;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +12,7 @@ import java.util.regex.Pattern;
  * 
  * 
  * 
- * 答案都是相同的，但是针对题没有做分类
+ * 答案不同，也没有试题相关的分类
  */
 public class DifferentAnswerNoCate {
 	public static String splitQ = "###";

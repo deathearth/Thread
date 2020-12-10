@@ -43,7 +43,7 @@ public class SameAnswerNoCate{
 			if(question.length() <= 0) {
 				continue;
 			}
-			System.out.println("当前题："+ question);
+//			System.out.println("当前题："+ question);
 			String[] eachLine = question.split(splitBR);
 			StringBuffer sb = new StringBuffer();
 			
