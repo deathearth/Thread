@@ -69,18 +69,17 @@ public class DifferentAnswerNoCate {
 				sb.append("a:" + answers.length + ":{"); // 这里要指明有几个答案
 				int tt = 0;
 				
+				
+				//每个答案对应什么类型的分数？
+				int num = 1;
 				//TODO 这里需要处理分数的信息
-				
-				
 				for (String answer : answers) {
-					int type = 0;
 					int count = getCount(answer);
 					count = count * 3 + answer.length() - count; // 字符的长度必须匹配，否则无法正常显示
 					sb.append(qData.replace(turn, tt + "").replace(charLength, answer + "").replace(answer, answer)
-							.replace(score, QuizTest.hm.get(type).toString()));
-//							sb.append(qData.replace(answer, Answer).replace(score, QuizTest.hm.get(type).toString()));
+							.replace(score, num+""));
 					tt++;
-
+					num++;
 				}
 			} else {
 				break;
