@@ -11,7 +11,11 @@ public class RegexTest {
 			  "never give up ! never surrender !";
 	
 	public static void main(String[] args) {
-		RegexTest rt = new RegexTest();
+		String str = "<strong>拳头</strong><strong>拳头</strong><strong>拳头</strong><strong>拳头</strong>";
+				str = str.replaceAll("\\<[a-zA-Z/].*?\\>", "");
+		System.out.println(str);
+		
+//		RegexTest rt = new RegexTest();
 		
 		// method 1
 //		rt.validateNumber("21");
@@ -35,7 +39,7 @@ public class RegexTest {
 		
 		
 		// method 5
-		rt.normalTest();
+//		rt.normalTest();
 		
 		// method 6
 //		rt.multReg();

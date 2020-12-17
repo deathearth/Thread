@@ -15,13 +15,13 @@ public class FileGetIO {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String md5 = getMD5ValueOfFile("C:\\Users\\MST-KKL\\Desktop\\abc\\222444.wmf");
-		String md55 = getMD5ValueOfFile("C:\\Users\\MST-KKL\\Desktop\\abc\\222333.wmf");
+		String md5 = getMD5ValueOfFile("C:\\Users\\MST-KKL\\Desktop\\oleObject1.bin");
+		String md55 = getMD5ValueOfFile("C:\\Users\\MST-KKL\\Desktop\\oleObject7.bin");
 		System.out.println(md5);
 		System.out.println(md55);
 		try {
-			System.out.println(DigestUtils.md5Hex(new FileInputStream("C:\\Users\\MST-KKL\\Desktop\\abc\\222444.wmf")));
-			System.out.println(DigestUtils.md5Hex(new FileInputStream("C:\\Users\\MST-KKL\\Desktop\\abc\\222333.wmf")));
+			System.out.println(DigestUtils.md5Hex(new FileInputStream("C:\\Users\\MST-KKL\\Desktop\\oleObject1.bin")));
+			System.out.println(DigestUtils.md5Hex(new FileInputStream("C:\\Users\\MST-KKL\\Desktop\\oleObject1.bin")));
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
