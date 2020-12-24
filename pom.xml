@@ -209,6 +209,54 @@
 	        <artifactId>spire.doc.free</artifactId>
 	        <version>2.7.3</version>
 	    </dependency>
+	    
+		<!-- https://mvnrepository.com/artifact/org.freehep/freehep-graphicsio-emf -->
+		<dependency>
+		    <groupId>org.freehep</groupId>
+		    <artifactId>freehep-graphicsio-emf</artifactId>
+		    <version>2.4</version>
+		</dependency>
+	    
+	    
+
+<dependency>
+    <groupId>org.apache.xmlgraphics</groupId>
+    <artifactId>batik-codec</artifactId>
+    <version>1.7</version>
+    <exclusions>
+        	<exclusion>
+        	  <groupId>xalan</groupId>
+  <artifactId>xalan</artifactId>
+</exclusion>
+        </exclusions>
+</dependency>
+<dependency>
+	<groupId>org.apache.xmlgraphics</groupId>
+	<artifactId>batik-all</artifactId>
+	<version>1.13</version>
+</dependency>
+<dependency>
+	<groupId>batik</groupId>
+	<artifactId>batik-util</artifactId>
+	<version>1.6</version>
+</dependency>
+<dependency>
+    <groupId>net.arnx</groupId>
+    <artifactId>wmf2svg</artifactId>
+    <version>0.9.8</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
+<dependency>
+	<groupId>xml-apis</groupId>
+	<artifactId>xml-apis</artifactId>
+	<version>1.4.01</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.xmlgraphics</groupId>
+	<artifactId>batik-svggen</artifactId>
+	<version>1.10</version>
+</dependency>
+	    
 	</dependencies>
 
 	<repositories>

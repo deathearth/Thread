@@ -11,9 +11,31 @@ public class RegexTest {
 			  "never give up ! never surrender !";
 	
 	public static void main(String[] args) {
-		String str = "<strong>拳头</strong><strong>拳头</strong><strong>拳头</strong><strong>拳头</strong>";
-				str = str.replaceAll("\\<[a-zA-Z/].*?\\>", "");
-		System.out.println(str);
+		multReg();
+		
+//		String str = "<br>根据题目中给定的四个命题，判断命题是否正确时，如果找出一个反例不符合题意，那么此命题错误，而特值法是非常简单的，还要注意的是考虑正负号的问题.<br>"
+//				+ "（1）错误，当<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test."
+//				+ "mistong.com/api/filecenter/fileService/file/803491606881763337\" fileId =  \"803489691325366280\" "
+//				+ "data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«/math»\"/>时不成立；<br>正确，因为<img "
+//				+ "class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/"
+//				+ "api/filecenter/fileService/file/803491615471697925\" fileId =  \"803489691325366291\" data-mathml=\"«math "
+//				+ "xmlns=¨http://www.w3.org/1998/Math/MathML¨»«/math»\"/>在<img class=\"Wirisformula\" style=\"max-width: none;\" "
+//				+ "role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/803491546752221187\" "
+//				+ "data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math»«mfrac "
+//				+ "xmlns=¨http://www.w3.org/1998/Math/MathML¨ »«mrow»«mi»a«/mi»«/mrow»«mrow»«msup»«mrow»«mi»c«/mi»«/mrow»«mrow»«mn»"
+//				+ "2«/mn»«/mrow»«/msup»«/mrow»«/mfrac»«mo xmlns=¨http://www.w3.org/1998/Math/MathML¨ »&gt;«/mo»«mfrac "
+//				+ "xmlns=¨http://www.w3.org/1998/Math/MathML¨ »«mrow»«mi»b«/mi»«/mrow»«mrow»«msup»«mrow»«mi»c«/mi»«/mrow»"
+//				+ "«mrow»«mn»2«/mn»«/mrow»«/msup»«/mrow»«/mfrac»«/math»«/math»\"/>两边同时乘以<img class=\"Wirisformula\" "
+//				+ "style=\"max-width: none;\" role=\"math\" "
+//				+ "src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/803491615471697949\" "
+//				+ "fileId =  \"803489691325366301\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«/math»\"/>，"
+//				+ "不等号方向不变，得<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" "
+//				+ "src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/803491546752221189\" "
+//				+ "data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«math»«mi xmlns=¨http://www.w3.org/1998/Math/MathML"
+//				+ "¨ »a«/mi»«mo xmlns=¨http://www.w3.org/1998/Math/MathML¨ »&gt;«/mo»«mi xmlns=¨http://www.w3.org/1998/Math/MathML¨ "
+//				+ "»b«/mi»«/math»«/math»\"/>；<br>错误，当<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/803491615471697960\" fileId =  \"803489691325366309\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»«/math»\"/>时不成立；<br>错误，当<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test.mistong.com/api/filecenter/fileService/file/803491615471697976\" fileId =  \"803489691325366317\" data-mathml=\"«math xmlns=¨http://www.w3.org/1998/Math/MathML¨»〖fix〗803489691325366317〖fix〗«/math»\"/>是不成立.<br>本题主要利用不等式的性质判断命题的真假，题目较简单，注意特值法的应用.";
+//				str = str.replaceAll("\\<img.*?\\>", "");
+//		System.out.println(str);
 		
 //		RegexTest rt = new RegexTest();
 		
@@ -132,7 +154,7 @@ public class RegexTest {
 	}
 	
 	
-	void multReg() {
+	static void multReg() {
 		Pattern p = Pattern.compile("[has]", Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
 		Matcher m = p.matcher(""
 				+ "java has regex\nJava has regex\n"
