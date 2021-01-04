@@ -17,7 +17,7 @@ public class RegTest {
 
     public static void main(String[] args){
     	
-    	File f = new File("C:\\Users\\MST-KKL\\Desktop\\allinfo.txt");
+    	File f = new File("C:\\Users\\MST-KKL\\Desktop\\allinfo1.txt");
     	StringBuilder sb = new StringBuilder();
     	FileInputStream fis;
 		try {
@@ -57,6 +57,7 @@ public class RegTest {
             //group是针对（）来说的，group（0）就是指的整个串，group（1） 指的是第一个括号里的东西，group（2）指的第二个括号里的东西。//group（）= group（0）
 //            System.out.println(matcher.group().trim());
         }
+        System.out.println(s.size());
         for(Iterator iter = s.iterator(); iter.hasNext();) {
         	System.out.print(iter.next()+"|");
         }

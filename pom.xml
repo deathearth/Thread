@@ -216,10 +216,8 @@
 		    <artifactId>freehep-graphicsio-emf</artifactId>
 		    <version>2.4</version>
 		</dependency>
-	    
-	    
 
-<dependency>
+<!-- <dependency>
     <groupId>org.apache.xmlgraphics</groupId>
     <artifactId>batik-codec</artifactId>
     <version>1.7</version>
@@ -245,7 +243,7 @@
     <artifactId>wmf2svg</artifactId>
     <version>0.9.8</version>
 </dependency>
-<!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
+https://mvnrepository.com/artifact/xml-apis/xml-apis
 <dependency>
 	<groupId>xml-apis</groupId>
 	<artifactId>xml-apis</artifactId>
@@ -255,7 +253,7 @@
 	<groupId>org.apache.xmlgraphics</groupId>
 	<artifactId>batik-svggen</artifactId>
 	<version>1.10</version>
-</dependency>
+</dependency> -->
 	    
 	</dependencies>
 
