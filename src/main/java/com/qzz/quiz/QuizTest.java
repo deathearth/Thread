@@ -113,19 +113,16 @@ public class QuizTest {
 		new QuizTest().init();
 		boolean bool = true;
 		
-		String txt = "";
 		String path = System.getProperty("user.dir") + "/src/main/resources/";
-		txt = getLocalTxt(path + "九型人格.txt");
+		String name = "九型人格";
 		
+		String txt = getLocalTxt(path +name+".txt");
 		if(txt.indexOf(SameAnswerNoCate.splitQ) < 0) {
 			bool= false;
 		}
 		
 		if(bool) {
 			List<QuestionVO> list = new ArrayList<QuestionVO>();
-			
-			
-			
 			list = SameAnswerNoCate.analyseText(txt);
 //			list = SameAnswerHasCate.analyseText(text);
 //			list = DifferentAnswerNoCate.analyseText(text);
@@ -133,7 +130,7 @@ public class QuizTest {
 			/**
 			 * 拼接插入语句
 			 */
-			PackageInsert.concatSql(list);
+			PackageInsert.concatSql(list, name);
 		}
 
 	}

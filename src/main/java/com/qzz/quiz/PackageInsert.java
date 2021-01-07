@@ -12,7 +12,7 @@ public class PackageInsert {
 	 * 包装生成sql
 	 * @param list
 	 */
-	public static void concatSql(List<QuestionVO> list) {
+	public static void concatSql(List<QuestionVO> list, String name) {
 		
 		StringBuffer sb = new StringBuffer();
 		for(QuestionVO q: list) {
@@ -65,11 +65,13 @@ public class PackageInsert {
 		}
 		
 		
-		write(sb.toString());
+		write(sb.toString(), name);
 	}
 	
-	public static void write(String s) {
-		File f = new File("sql.text");
+	public static void write(String s, String name) {
+		String path = System.getProperty("user.dir") + "/src/main/resources/";
+		path = path + name + ".sql";
+		File f = new File(path);
 		try {
 			FileOutputStream fos = new FileOutputStream(f);
 			fos.write(s.getBytes());
