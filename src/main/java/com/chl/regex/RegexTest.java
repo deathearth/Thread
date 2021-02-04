@@ -1,7 +1,12 @@
 package com.chl.regex;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+//import com.ewt360.questionproduceprod.service.word.constant.Constant;
 
 public class RegexTest {
 	static String text = "as long as there is injustice, whenever a\n"+
@@ -11,7 +16,10 @@ public class RegexTest {
 			  "never give up ! never surrender !";
 	
 	public static void main(String[] args) {
-		multReg();
+		String s = testLimit();
+		System.out.println(s);
+		
+//		multReg();
 		
 //		String str = "<br>根据题目中给定的四个命题，判断命题是否正确时，如果找出一个反例不符合题意，那么此命题错误，而特值法是非常简单的，还要注意的是考虑正负号的问题.<br>"
 //				+ "（1）错误，当<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test."
@@ -133,6 +141,61 @@ public class RegexTest {
 		}
 	}
 	
+	/**
+	 * 只有单行单个图片，单行多个图片，没有文字的进行位置设置
+	 */
+	private static String testLimit() {
+//		String s = "〖mathRid〗rId6@@DRAWN#center#94#83〖mathRid〗〖mathRid〗rId6@@DRAWN#center#94#83〖mathRid〗〖mathRid〗rId6@@DRAWN#center#94#83〖mathRid〗";
+		String s = "〖mathRid〗rId6@@DRAWN#center#94#83〖mathRid〗";
+//		String s = "〖mathRid〗rId6@@DRAWN#center#94#83〖mathRid〗〖mathRid〗rId6@@DRAWN#center#94#83〖mathRid〗22〖mathRid〗rId6@@DRAWN#center#94#83〖mathRid〗";
+		String regex = "〖mathRid〗" + "(.[\\s\\S]*?)" + "〖mathRid〗";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        Integer firstIndex = 0;
+        int count = 0;
+        Map<String,String> tempRep = new HashMap<String,String>();
+        while (matcher.find()) {
+            String fileName = matcher.group(1);
+            
+            if(firstIndex > 0) {
+            	String check = s.substring(firstIndex, matcher.start());
+            	if(check.length() > 0) {
+            		count = 0;
+            		break;
+            	}
+            }
+            
+            String pos[] = fileName.split("#");
+            String type = pos[0];     //封装类型
+//            if(type.indexOf(Constant.SEPCIAL_DRAWN) > 0) {
+            if(type.indexOf("DRAWN") < 0) {
+            	count = 0;
+            	break;
+            }
+            String position = pos[1]; //位置信息
+            tempRep.put(fileName, position);
+            
+            firstIndex = matcher.end();
+            count++;
+        }
+        if(count == 0 || tempRep.size() < 0) {
+        	return s;	
+        }
+    	
+    	if(count == 1) { //替换单个图片
+    		for(Entry<String,String> entry : tempRep.entrySet()) {
+    			String value = entry.getKey().replace(entry.getValue(), entry.getValue()+"Single");
+    			s = s.replace(entry.getKey(), value);
+    		}
+    		return s;
+    	}else { //替换多个图片
+    		for(Entry<String,String> entry : tempRep.entrySet()) {
+    			String value = entry.getKey().replace(entry.getValue(), entry.getValue()+"Mult");
+    			s = s.replace(entry.getKey(), value);
+    		}
+    		return s;
+    	}
+	}
 	
 	
 	/**
