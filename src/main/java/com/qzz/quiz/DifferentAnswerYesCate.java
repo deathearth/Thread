@@ -51,7 +51,29 @@ public class DifferentAnswerYesCate {
 			qv.setIncorrect_msg("");// 错误答案
 			qv.setCorrect_same_text(0); // ?
 			qv.setAnswer_type("'single'"); // 单选题+
-			qv.setCategory_id(0); // 题属于哪个分类
+			
+			//计算题所属分类
+			int cate = -1;
+			for(int i = 0; i < QuizTest.scoreIds.length; i++) {
+				Integer[] qids = QuizTest.scoreIds[i];
+				for(int j = 0 ; j < qids.length ; j++) {
+					if(sort==qids[j]) {
+						cate = QuizTest.classify[i];
+						break;
+					}
+				}
+				if(cate != -1) {
+					break;
+				}
+			}
+			if(cate == -1) {
+				System.out.println("分类信息错误");
+				
+				System.out.println(sort  +"---" );
+				break;
+			}
+			qv.setCategory_id(cate); //题属于哪个分类 // 题属于哪个分类
+			
 			qv.setDisable_correct(0); // 去掉正确错误答案
 			qv.setMatrix_sort_answer_criteria_width(20); // ?
 			qv.setAnswer_points_diff_modus_activated(1); // 不同答案不同分

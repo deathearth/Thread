@@ -62,6 +62,7 @@ public class PackageInsert {
 			sb.append(",");
 			sb.append(q.getMatrix_sort_answer_criteria_width());
 			sb.append(" ); ");
+			sb.append("\r\n");
 		}
 		
 		
