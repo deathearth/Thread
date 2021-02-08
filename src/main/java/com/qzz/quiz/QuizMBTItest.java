@@ -38,6 +38,12 @@ public class QuizMBTItest {
 	 * ================================================================================
 	 */
 	
+	/**
+	 * 5
+	 */
+	public static Integer SCORE_POINT_INFO = 5; 
+
+	
 	
 	//试题有几种分类,和下面的一一对应
 	public static Integer type = 8;
@@ -58,7 +64,7 @@ public class QuizMBTItest {
 	/**
 	 * 分类信息,这个指把试题分为了几大类
 	 */
-	public static Integer classify[] = {1,2,3,4,5,6,7,8}; //注：这个需要和上面的顺序保持一致
+	public static Integer classify[] = {38,39,40,41,42,43,44,45}; //注：这个需要和上面的顺序保持一致
 	
 	/**
 	 * 分数和上面的classify相对应，表示每个分类的试题应该获得多少分
@@ -124,7 +130,7 @@ public class QuizMBTItest {
 		if(bool) {
 			List<QuestionVO> list = new ArrayList<QuestionVO>();
 //			list = SameAnswerNoCate.analyseText(txt);
-			list = SameAnswerHasCate.analyseText(txt);
+			list = SameAnswerHasCate.analyseText(txt,SCORE_POINT_INFO);
 //			list = DifferentAnswerNoCate.analyseText(txt);
 			
 			/**

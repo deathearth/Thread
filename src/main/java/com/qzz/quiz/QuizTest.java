@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 
  *  单题的每个答案不能一样
- *
+ *   https://wenku.baidu.com/view/452d59244a73f242336c1eb91a37f111f1850d0d.html
  */
 public class QuizTest {
 	
@@ -28,9 +28,9 @@ public class QuizTest {
 	/**
 	 * 不能出现特殊符号
 	 */
-//	private static String allTheWay = "是%1,否%0"; 
+	private static String allTheWay = "是%1,否%0"; 
 //	private static String allTheWay = "非常符合%-2,比较符合计%-1,拿不准的计%0,比较不符合计%1,完全不符合计%2";
-	private static String allTheWay = "0分%0,1分%1,2分%2,3分%3,4分%4,5分%5";
+//	private static String allTheWay = "0分%0,1分%1,2分%2,3分%3,4分%4,5分%5";
 	
 	/***
 	 * ================================================================================
@@ -40,34 +40,37 @@ public class QuizTest {
 	
 	
 	//试题有几种分类,和下面的一一对应
-	public static Integer type = 8;
+	public static Integer type = 9;
 	
 	//二维数组处理,如果每种类型的题分不一致的话需要用这个
 	public static Integer scoreIds[][] = 
 		{
-			{1, 9,17,25,33,41,49,57,65,73,81,89},
-			{2,10,18,26,34,42,50,58,66,74,82,90},
-			{3,11,19,27,35,43,51,59,67,75,83,91},
-			{4,12,20,28,36,44,52,60,68,76,84,92},
-			{5,13,21,29,37,45,53,61,69,77,85,93},
-			{6,14,22,30,38,46,54,62,70,78,86,94},
-			{7,15,23,31,39,47,55,63,71,79,87,95},
-			{8,16,24,32,40,48,56,64,72,80,88,96},
+			{2,14,55,57,60,  63,73,81,87,91, 97,102,104,106},
+			{6,8,22,30,69,   71,79,82,85,86, 89,90},
+			{20,33,38,59,65, 67,70,72,74,77, 80,93},
+			{7,13,17,52,53,  54,56,58,61,64, 100,105},
+			{3,19,23,32,42,  43,47,48,51,83, 88,99,101},
+			{9,10,26,29,31,  35,37,45,46,68, 75},
+			{4,16,18,21,28,  49,78,92,103},
+			{5,11,24,27,40,  44,50,66,76,84, 95,96},
+			{1,12,15,25,34,  36,39,41,62,94, 98,107,108}
 		};
 	
 	/**
 	 * 分类信息,这个指把试题分为了几大类
 	 */
-	public static Integer classify[] = {1,2,3,4,5,6,7,8}; //注：这个需要和上面的顺序保持一致
+	public static Integer classify[] = {29,30,31,32,33,34,35,36,37}; //注：这个需要和上面的顺序保持一致
 	
 	/**
 	 * 分数和上面的classify相对应，表示每个分类的试题应该获得多少分
 	 */
 	private static Integer score[] = {}; //注：这个需要和上面的顺序保持一致
 	
+	public static Integer SCORE_POINT_INFO = 1; 
+	
 	/**
 	 * 存放类型 + 分数
-	 * type 、 scoreIds、classify、score 相关联信息
+	 * type , scoreIds,classify,score 相关联信息
 	 */
 	public static HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
 	
@@ -117,14 +120,14 @@ public class QuizTest {
 		txt = getLocalTxt(path + "九型人格.txt");
 		
 		if(txt.indexOf(SameAnswerNoCate.splitQ) < 0
-				|| quizId < 18) {
+				) {
 			bool= false;
 		}
 		
 		if(bool) {
 			List<QuestionVO> list = new ArrayList<QuestionVO>();
-			list = SameAnswerNoCate.analyseText(txt);
-//			list = SameAnswerHasCate.analyseText(text);
+//			list = SameAnswerNoCate.analyseText(txt);
+			list = SameAnswerHasCate.analyseText(txt,SCORE_POINT_INFO);
 //			list = DifferentAnswerNoCate.analyseText(text);
 			
 			/**

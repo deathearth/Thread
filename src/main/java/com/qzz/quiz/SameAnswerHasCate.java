@@ -33,7 +33,7 @@ public class SameAnswerHasCate{
 	
 	private static String qData = "i:@turn;O:27:\\\"WpProQuiz_Model_AnswerTypes\\\":7:{s:10:\\\"\\0*\\0_answer\\\";s:@charLength:\\\"@answer\\\";s:8:\\\"\\0*\\0_html\\\";b:0;s:10:\\\"\\0*\\0_points\\\";i:@score;s:11:\\\"\\0*\\0_correct\\\";b:0;s:14:\\\"\\0*\\0_sortString\\\";s:0:\\\"\\\";s:18:\\\"\\0*\\0_sortStringHtml\\\";b:0;s:10:\\\"\\0*\\0_mapper\\\";N;}";
 
-	public static List<QuestionVO> analyseText(String text){
+	public static List<QuestionVO> analyseText(String text, Integer point){
 		List<QuestionVO> list = new ArrayList<QuestionVO>();
 		
 		String[] eachQuestion = text.split(splitQ);
@@ -47,17 +47,17 @@ public class SameAnswerHasCate{
 			StringBuffer sb = new StringBuffer();
 			
 			//公共部分
-			qv.setQuiz_id(QuizTest.quizId);//所属试卷
+			qv.setQuiz_id(QuizMBTItest.quizId);//所属试卷
 			qv.setOnline(1); //线上？
 			int sort = Integer.parseInt(question.split(splitN)[0]);
 			qv.setSort(sort); //排序值
 			//计算题所属分类
 			int cate = -1;
-			for(int i = 0; i < QuizTest.scoreIds.length; i++) {
-				Integer[] qids = QuizTest.scoreIds[i];
+			for(int i = 0; i < QuizMBTItest.scoreIds.length; i++) {
+				Integer[] qids = QuizMBTItest.scoreIds[i];
 				for(int j = 0 ; j < qids.length ; j++) {
 					if(sort==qids[j]) {
-						cate = QuizTest.classify[i];
+						cate = QuizMBTItest.classify[i];
 						break;
 					}
 				}
@@ -85,13 +85,13 @@ public class SameAnswerHasCate{
 			//开启提示,一般不设置
 			qv.setTip_enabled(0);
 			qv.setTip_msg("");
-			qv.setPoints(0);//总分， 按题计分还是答案处理
+			qv.setPoints(point);//总分， 按题计分还是答案处理
 			
-			sb.append("a:"+QuizTest.ac.size()+":{");   //这里要指明有几个答案
+			sb.append("a:"+QuizMBTItest.ac.size()+":{");   //这里要指明有几个答案
 			qv.setQuestion(eachLine[0].replace(splitN, ". "));
 			qv.setDisable_correct(1); //去掉正确错误答案
 			int tt = 0;
-			for(Entry<String,Integer> e:QuizTest.ac.entrySet()) {
+			for(Entry<String,Integer> e:QuizMBTItest.ac.entrySet()) {
 				int count = getCount(e.getKey().toString());
 				count = count * 3 + e.getKey().length() - count; //字符的长度必须匹配，否则无法正常显示
 				sb.append(qData.replace(turn, tt+"").replace(charLength, count+"").replace(answer, e.getKey()).replace(score, String.valueOf(e.getValue())));
