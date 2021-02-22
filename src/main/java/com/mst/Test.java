@@ -17,6 +17,17 @@ public class Test {
 		System.out.println(JSON.parseArray(str.toString(), String.class));
 		
 		System.out.println(jb.get("taskId"));
+		testTry();
+	}
+	
+	
+	public static void testTry() {
+		try {
+			Integer.parseInt("s");
+		}catch(Exception e) {
+			
+		}
+		System.out.println("So Cool!");
 	}
 
 }
