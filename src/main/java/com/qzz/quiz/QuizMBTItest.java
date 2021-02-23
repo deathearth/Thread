@@ -30,7 +30,7 @@ public class QuizMBTItest {
 	 */
 //	private static String allTheWay = "是%1,否%0"; 
 //	private static String allTheWay = "非常符合%-2,比较符合计%-1,拿不准的计%0,比较不符合计%1,完全不符合计%2";
-	private static String allTheWay = "0分%0,1分%1,2分%2,3分%3,4分%4,5分%5";
+	private static String allTheWay = "完全不符合%0,比较不符合%1,拿不准%2,有一点符合%3,比较符合%4,非常符合%5";
 	
 	/***
 	 * ================================================================================
