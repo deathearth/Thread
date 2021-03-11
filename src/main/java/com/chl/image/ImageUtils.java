@@ -54,25 +54,25 @@ public class ImageUtils {
 		String path = "C:\\Users\\MST-KKL\\Desktop\\";
 		
 		ArrayList<String> al = new ArrayList<String>();
-		al.add("ISTJ");
-		al.add("JSFJ");
-		al.add("INFJ");
-		al.add("INTJ");
-		al.add("ISTP");
-		al.add("ISFP");
-		al.add("INFP");
-		al.add("INTP");
-		
-		al.add("EFTP");
-		al.add("ESFP");
-		al.add("ENFP");
-		al.add("ENTP");
-		al.add("ESTJ");
-		al.add("ESFJ");
-		al.add("ENFJ");
-		al.add("ENTJ");
-		
-		al.add("MBTI");
+		al.add("ESTP");
+//		al.add("ISFJ");
+//		al.add("INFJ");
+//		al.add("INTJ");
+//		al.add("ISTP");
+//		al.add("ISFP");
+//		al.add("INFP");
+//		al.add("INTP");
+//		
+//		al.add("ESTP");
+//		al.add("ESFP");
+//		al.add("ENFP");
+//		al.add("ENTP");
+//		al.add("ESTJ");
+//		al.add("ESFJ");
+//		al.add("ENFJ");
+//		al.add("ENTJ");
+//		
+//		al.add("MBTI");
 		try {
 			for(int i = 0 ; i < al.size() ; i++) {
 				createPictureUn(al.get(i), path);
