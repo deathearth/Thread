@@ -198,9 +198,9 @@ public class MySimHash {
 
     public static void main(String[] args) {
 
-        String s1 = "<u>It is likely that</u> Native Americans moved to California at least fifteen thousand years ago. <br>仿写: 他很可能来自意大利, 因为他说英语时带有明显的意大利口音。<br><span class=\"mst-question-answer-placeholder\">1</span>"; 
-        String s2 = "<u>It is likely that</u> Native Americans moved to California at least fifteen thousand years ago. <br>仿写: 他很可能来自意大利, 因为他说英语时带有明显的意大利口音。<br>";
-        String s3 = "gateway.test.mistong.com/api/filecenter/fileService/file/782123620597817345 width=194 height=149/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123620597817346 width=194 height=154/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123620597817347 width=201 height=148/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123629187751936 width=204 height=148/>\"]";
+        String s1 = "We have entered into an age _______ dreams have the best chance of coming true.[\"which\",\"what\",\"when\",\"that\"]"; 
+        String s2 = "We have entered into an age _______ dreams have the best chance of coming true.	[\"which\",\"what\",\"when\",\"that\"]";
+//        String s3 = "gateway.test.mistong.com/api/filecenter/fileService/file/782123620597817345 width=194 height=149/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123620597817346 width=194 height=154/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123620597817347 width=201 height=148/>\",\"<img  src=http://filegateway.test.mistong.com/api/filecenter/fileService/file/782123629187751936 width=204 height=148/>\"]";
 //
 //        long l3 = System.currentTimeMillis();
         MySimHash hash1 = new MySimHash(s1, 64);

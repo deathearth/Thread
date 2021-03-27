@@ -16,10 +16,10 @@ public class RegexTest {
 			  "never give up ! never surrender !";
 	
 	public static void main(String[] args) {
-		String s = testLimit();
-		System.out.println(s);
+//		String s = testLimit();
+//		System.out.println(s);
 		
-//		multReg();
+		multReg();
 		
 //		String str = "<br>根据题目中给定的四个命题，判断命题是否正确时，如果找出一个反例不符合题意，那么此命题错误，而特值法是非常简单的，还要注意的是考虑正负号的问题.<br>"
 //				+ "（1）错误，当<img class=\"Wirisformula\" style=\"max-width: none;\" role=\"math\" src=\"http://filegateway.test."
