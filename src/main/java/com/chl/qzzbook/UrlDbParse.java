@@ -522,11 +522,13 @@ public class UrlDbParse {
 			System.out.println(); 
 		}
 		
-		System.out.println(); 
+		System.out.println("<!-- wp:paragraph -->");
+		System.out.println("<p>请关注'七宗罪'公众号，回复qzznZu93Ug获取资源</p>");
+		System.out.println("<!-- /wp:paragraph -->");
+		
 		System.out.println("<!-- wp:paragraph -->");
 		System.out.println("<p>查看更多心理学书籍：<a href=\"https://www.ottffss.net/3254.html\" title=\"340本心理学书籍整理，第一弹\">340本心理学书籍整理，第一弹</a></p>");
 		System.out.println("<!-- /wp:paragraph -->");
-		
 	}
 	
 	
